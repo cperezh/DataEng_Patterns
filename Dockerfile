@@ -1,5 +1,6 @@
 FROM python:3.11-slim
 
+# Ruta absoluta dentro del contenedor donde se instala la aplicación
 WORKDIR /app
 
 COPY requirements.txt .
