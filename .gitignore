@@ -1,0 +1,24 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+
+# Virtual environments
+venv/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.coveragerc
+
+# IDE
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.log
+.env
+.env.local

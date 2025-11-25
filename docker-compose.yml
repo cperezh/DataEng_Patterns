@@ -1,0 +1,43 @@
+services:
+  app:
+    build: .
+    restart: "no"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: pruebas
+    command: ["python", "main.py"]
+    volumes:
+      - ./data:/app/data
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: pruebas
+    volumes:
+      - db_data:/var/lib/postgresql
+      - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    ports:
+      - "8978:8978"
+    environment:
+      - CB_SERVER_PORT=8978
+    volumes:
+      - cloudbeaver_workspace:/opt/cloudbeaver/workspace
+      - cloudbeaver_conf:/opt/cloudbeaver/conf
+
+volumes:
+  db_data:
+  cloudbeaver_workspace:
+  cloudbeaver_conf:
