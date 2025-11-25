@@ -8,8 +8,8 @@ import io
 
 import pytest
 
-from src.etl import etl_movimientos as etl
-from src.core.movimientos import Movimiento
+from etl import etl_movimientos as etl
+from core.movimientos import Movimiento
 
 
 def test_normalizar_numero_basic_cases():

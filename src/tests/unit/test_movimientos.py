@@ -5,6 +5,7 @@ Usando TDD: primero escribimos los tests, luego implementamos.
 import pytest
 from datetime import date
 from decimal import Decimal
+from core.movimientos import Movimiento, BDMovimientos
 
 
 class TestMovimiento:
@@ -12,7 +13,6 @@ class TestMovimiento:
 
     def test_crear_movimiento_con_datos_validos(self):
         """Un movimiento debe crearse con fecha, comentario e importe válidos"""
-        from src.core.movimientos import Movimiento
         
         fecha = date(2025, 11, 13)
         comentario = "Pago de factura"
@@ -30,7 +30,6 @@ class TestMovimiento:
 
     def test_movimiento_requiere_fecha_valida(self):
         """Un movimiento debe tener una fecha válida"""
-        from src.core.movimientos import Movimiento
         
         with pytest.raises(TypeError):
             Movimiento(
@@ -41,7 +40,6 @@ class TestMovimiento:
 
     def test_movimiento_requiere_concepto_no_vacio(self):
         """Un movimiento debe tener un comentario no vacío"""
-        from src.core.movimientos import Movimiento
         
         with pytest.raises(ValueError):
             Movimiento(
@@ -52,7 +50,6 @@ class TestMovimiento:
 
     def test_movimiento_requiere_importe_positivo_o_negativo(self):
         """Un movimiento puede tener importe positivo (ingreso) o negativo (gasto)"""
-        from src.core.movimientos import Movimiento
         
         # Importe positivo (ingreso)
         movimiento_positivo = Movimiento(
@@ -72,7 +69,6 @@ class TestMovimiento:
 
     def test_movimiento_requiere_importe_valido(self):
         """Un movimiento debe tener un importe de tipo Decimal"""
-        from src.core.movimientos import Movimiento
         
         with pytest.raises(TypeError):
             Movimiento(
@@ -83,7 +79,6 @@ class TestMovimiento:
 
     def test_movimiento_str_representation(self):
         """La representación en string de un movimiento debe ser legible"""
-        from src.core.movimientos import Movimiento
         
         movimiento = Movimiento(
             fecha_movimiento=date(2025, 11, 13),
@@ -97,14 +92,13 @@ class TestMovimiento:
         assert "100.50" in resultado
 
 
-class TestRepositorioMovimientos:
+class TestBDMovimientos:
     """Tests para el repositorio de movimientos"""
 
     def test_guardar_movimiento(self):
         """Debe poder guardar un movimiento en la BD"""
-        from src.core.movimientos import Movimiento, RepositorioMovimientos
         
-        repositorio = RepositorioMovimientos()
+        repositorio = BDMovimientos()
         movimiento = Movimiento(
             fecha_movimiento=date(2025, 11, 13),
             comentario="Pago de factura",
@@ -116,9 +110,8 @@ class TestRepositorioMovimientos:
 
     def test_obtener_movimiento_por_id(self):
         """Debe poder obtener un movimiento por su ID"""
-        from src.core.movimientos import Movimiento, RepositorioMovimientos
         
-        repositorio = RepositorioMovimientos()
+        repositorio = BDMovimientos()
         movimiento = Movimiento(
             fecha_movimiento=date(2025, 11, 13),
             comentario="Pago de factura",
@@ -134,9 +127,8 @@ class TestRepositorioMovimientos:
 
     def test_obtener_todos_los_movimientos(self):
         """Debe poder obtener todos los movimientos"""
-        from src.core.movimientos import Movimiento, RepositorioMovimientos
         
-        repositorio = RepositorioMovimientos()
+        repositorio = BDMovimientos()
         
         # Guardar varios movimientos
         m1 = repositorio.guardar(Movimiento(date(2025, 11, 13), "Pago 1", Decimal("100.00")))
@@ -150,9 +142,8 @@ class TestRepositorioMovimientos:
 
     def test_eliminar_movimiento(self):
         """Debe poder eliminar un movimiento"""
-        from src.core.movimientos import Movimiento, RepositorioMovimientos
         
-        repositorio = RepositorioMovimientos()
+        repositorio = BDMovimientos()
         movimiento = repositorio.guardar(Movimiento(
             date(2025, 11, 13),
             "Pago a eliminar",
@@ -166,9 +157,8 @@ class TestRepositorioMovimientos:
 
     def test_obtener_movimientos_por_rango_fechas(self):
         """Debe poder obtener movimientos en un rango de fechas"""
-        from src.core.movimientos import Movimiento, RepositorioMovimientos
         
-        repositorio = RepositorioMovimientos()
+        repositorio = BDMovimientos()
         
         # Guardar movimientos en diferentes fechas
         m1 = repositorio.guardar(Movimiento(date(2025, 11, 10), "Pago 1", Decimal("100.00")))

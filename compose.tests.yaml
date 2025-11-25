@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    restart: "no"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: pruebas
+    command: ["pytest"]
+    volumes:
+      - ./data:/app/data # Rutas absolutas local:contenedor

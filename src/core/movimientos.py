@@ -59,7 +59,7 @@ class Movimiento:
         return f"Movimiento(id={self.id}, fecha={self.fecha_movimiento}, comentario='{self.comentario}', importe={self.importe})"
 
 
-class RepositorioMovimientos:
+class BDMovimientos:
     """Repositorio para gestionar movimientos en la base de datos"""
 
     def __init__(self):

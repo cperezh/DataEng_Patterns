@@ -19,7 +19,7 @@ from datetime import datetime, date
 from decimal import Decimal, InvalidOperation
 from typing import List, Tuple, Optional, Dict, Any
 
-from core.movimientos import Movimiento, RepositorioMovimientos
+from core.movimientos import Movimiento, BDMovimientos
 from core.connection import ConexionBD
 
 
@@ -182,14 +182,14 @@ def extraer_movimientos(path: str) -> Tuple[List[Movimiento], List[Dict[str, Any
     return movimientos, errores
 
 
-def cargar_movimientos_en_bd(movimientos: List[Movimiento], repo: Optional[RepositorioMovimientos] = None) -> List[Movimiento]:
+def cargar_movimientos_en_bd(movimientos: List[Movimiento], repo: Optional[BDMovimientos] = None) -> List[Movimiento]:
     """Carga movimientos en la BD. Evita duplicados por (fecha, importe, saldo).
 
     Si encuentra duplicado, asigna el id existente al objeto movimiento y no inserta.
     Devuelve la lista de movimientos (algunos con id ya asignado).
     """
     if repo is None:
-        repo = RepositorioMovimientos()
+        repo = BDMovimientos()
 
     conn = ConexionBD().obtener_conexion()
 
@@ -217,7 +217,7 @@ def cargar_movimientos_en_bd(movimientos: List[Movimiento], repo: Optional[Repos
     return movimientos_guardados
 
 
-def run_etl(path: str, repo: Optional[RepositorioMovimientos] = None) -> Tuple[List[Movimiento], List[Dict[str, Any]]]:
+def run_etl(path: str, repo: Optional[BDMovimientos] = None) -> Tuple[List[Movimiento], List[Dict[str, Any]]]:
     """Flujo completo ETL: extraer, transformar y cargar.
 
     Devuelve (movimientos_cargados, errores_de_extraccion)

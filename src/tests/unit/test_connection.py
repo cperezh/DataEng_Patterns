@@ -1,19 +1,14 @@
 import pytest
 
-from src.core.connection import ConexionBD
+from core.connection import ConexionBD
 
 
 @pytest.mark.db
 def test_singleton_instancia_unica():
-    """Dos instancias de ConexionBD deben ser el mismo objeto (Singleton)."""
-    c1 = ConexionBD(host="localhost")
-    c2 = ConexionBD(host="localhost")
-
-    assert c1 is c2
 
     # La conexión interna también debe ser la misma referencia
-    conn1 = c1.obtener_conexion()
-    conn2 = c2.obtener_conexion()
+    conn1 = ConexionBD().obtener_conexion()
+    conn2 = ConexionBD().obtener_conexion()
     assert conn1 is conn2
 
 

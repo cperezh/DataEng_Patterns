@@ -22,7 +22,7 @@ services:
       - db_data:/var/lib/postgresql
       - ./sql:/docker-entrypoint-initdb.d
     ports:
-      - "5432:5432"
+      - "5432:5432" # PUERTO_HOST:PUERTO_CONTENEDOR
 
   cloudbeaver:
     image: dbeaver/cloudbeaver:latest
@@ -30,7 +30,7 @@ services:
     depends_on:
       - db
     ports:
-      - "8978:8978"
+      - "8978:8978" # PUERTO_HOST:PUERTO_CONTENEDOR
     environment:
       - CB_SERVER_PORT=8978
     volumes:
