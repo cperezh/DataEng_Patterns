@@ -1,0 +1,20 @@
+title Run ETL
+
+actor Carlos
+
+participant main
+participant etl_ing
+participant extract_ing
+database File system
+
+
+
+database Database
+
+Carlos->main:python main.py
+main->etl_ing:run
+etl_ing->extract_ing:extract_movimientos
+extract_ing->File system:read movimientos\n
+extract_ing->Database:insert movimientos staging\n
+Carlos<-main:OK
+Carlos->Database:check duplicates query

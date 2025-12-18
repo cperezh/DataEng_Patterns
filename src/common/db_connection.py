@@ -25,7 +25,7 @@ class ConexionBD:
     @classmethod
     def obtener_conexion(cls, host: str = "db", port: int = 5432,
                  database: str = "pruebas", user: str = "myuser",
-                 password: str = "mypassword") -> psycopg.Connection:
+                 password: str = "mypassword") -> Optional[psycopg.Connection]:
         """
         Obtiene la conexión singleton a la base de datos.
 

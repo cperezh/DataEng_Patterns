@@ -1,3 +1,7 @@
-from etl.etl_movimientos import run_etl
+from etl import etl_ing
 
-run_etl("./data/movements-15112025.csv")
+
+
+if __name__ == "__main__":
+
+    etl_ing.run()

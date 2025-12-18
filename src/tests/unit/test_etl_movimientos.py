@@ -8,28 +8,28 @@ import io
 
 import pytest
 
-from etl import etl_movimientos as etl
+from etl import etl_ing as etl_ing
 from core.movimientos import Movimiento
 
 
 def test_normalizar_numero_basic_cases():
-    assert etl.normalizar_numero(None) is None
-    assert etl.normalizar_numero("") is None
-    assert etl.normalizar_numero('1,234.56') == Decimal('1234.56')
+    assert etl_ing.normalizar_numero(None) is None
+    assert etl_ing.normalizar_numero("") is None
+    assert etl_ing.normalizar_numero('1,234.56') == Decimal('1234.56')
     # comma as decimal separator
-    assert etl.normalizar_numero('1234,56') == Decimal('1234.56')
+    assert etl_ing.normalizar_numero('1234,56') == Decimal('1234.56')
     # both dot and comma where dot is thousand separator (behavior: remove commas)
-    assert etl.normalizar_numero('1,234,567.89') == Decimal('1234567.89')
+    assert etl_ing.normalizar_numero('1,234,567.89') == Decimal('1234567.89')
 
 
 def test_parse_fecha_various_formats():
-    assert etl.parse_fecha('13/11/2025') == date(2025, 11, 13)
-    assert etl.parse_fecha('13/11/25') == date(2025, 11, 13)
-    assert etl.parse_fecha('2025-11-13') == date(2025, 11, 13)
+    assert etl_ing.parse_fecha('13/11/2025') == date(2025, 11, 13)
+    assert etl_ing.parse_fecha('13/11/25') == date(2025, 11, 13)
+    assert etl_ing.parse_fecha('2025-11-13') == date(2025, 11, 13)
     with pytest.raises(ValueError):
-        etl.parse_fecha('')
+        etl_ing.parse_fecha('')
     with pytest.raises(ValueError):
-        etl.parse_fecha(None)
+        etl_ing.parse_fecha(None)
 
 
 def test_fila_a_movimiento_happy_path():
@@ -41,7 +41,7 @@ def test_fila_a_movimiento_happy_path():
         'DESCRIPCION': 'Factura 123',
     }
 
-    mov = etl.fila_a_movimiento(row)
+    mov = etl_ing.fila_a_movimiento(row)
     assert isinstance(mov, Movimiento)
     assert mov.fecha_movimiento == date(2025, 11, 13)
     assert mov.comentario == 'Pago de factura'
@@ -58,7 +58,7 @@ def test_fila_a_movimiento_missing_fields_raises():
         'SALDO': '1000.00'
     }
     with pytest.raises(ValueError):
-        etl.fila_a_movimiento(row_missing)
+        etl_ing.fila_a_movimiento(row_missing)
 
 
 def _make_sample_csv_content():
@@ -78,7 +78,7 @@ def test_extraer_movimientos_from_csv(tmp_path):
     p = tmp_path / 'sample.csv'
     p.write_text(csv_text, encoding='utf-8')
 
-    movimientos, errores = etl.extraer_movimientos(str(p))
+    movimientos, errores = etl_ing.extraer_movimientos(str(p))
     # first row valid, second should be in errors
     assert len(movimientos) == 1
     assert len(errores) == 1
@@ -119,9 +119,9 @@ def test_cargar_movimientos_en_bd_inserts_and_skips(monkeypatch):
     dummy_repo = _DummyRepo()
 
     # monkeypatch ConexionBD in module to return connection with no existing
-    monkeypatch.setattr(etl, 'ConexionBD', lambda: type('C', (), {'obtener_conexion': lambda self: _DummyConn(None)})())
+    monkeypatch.setattr(etl_ing, 'ConexionBD', lambda: type('C', (), {'obtener_conexion': lambda self: _DummyConn(None)})())
 
-    res = etl.cargar_movimientos_en_bd([mov], repo=dummy_repo)
+    res = etl_ing.cargar_movimientos_en_bd([mov], repo=dummy_repo)
     assert len(res) == 1
     assert res[0].id == 999
     assert dummy_repo.saved
@@ -131,9 +131,9 @@ def test_cargar_movimientos_en_bd_inserts_and_skips(monkeypatch):
 
     dummy_repo2 = _DummyRepo()
     # connection returns an existing id
-    monkeypatch.setattr(etl, 'ConexionBD', lambda: type('C', (), {'obtener_conexion': lambda self: _DummyConn({'id': 123})})())
+    monkeypatch.setattr(etl_ing, 'ConexionBD', lambda: type('C', (), {'obtener_conexion': lambda self: _DummyConn({'id': 123})})())
 
-    res2 = etl.cargar_movimientos_en_bd([mov2], repo=dummy_repo2)
+    res2 = etl_ing.cargar_movimientos_en_bd([mov2], repo=dummy_repo2)
     assert len(res2) == 1
     assert res2[0].id == 123
     # repo should not have saved this movement
@@ -153,9 +153,9 @@ def test_run_etl_integration(monkeypatch, tmp_path):
     dummy_repo = DummyRepoAll()
 
     # monkeypatch ConexionBD to return a connection with no existing rows
-    monkeypatch.setattr(etl, 'ConexionBD', lambda: type('C', (), {'obtener_conexion': lambda self: _DummyConn(None)})())
+    monkeypatch.setattr(etl_ing, 'ConexionBD', lambda: type('C', (), {'obtener_conexion': lambda self: _DummyConn(None)})())
 
-    movimientos_cargados, errores = etl.run_etl(str(p), repo=dummy_repo)
+    movimientos_cargados, errores = etl_ing.run_etl(str(p), repo=dummy_repo)
     # Should load 1 movimiento (first row) and have 1 error (second row)
     assert len(movimientos_cargados) == 1
     assert len(errores) == 1

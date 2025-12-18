@@ -8,7 +8,7 @@ from typing import List, Optional
 import psycopg
 from psycopg import sql
 from psycopg.rows import dict_row
-from .connection import ConexionBD
+from ...common.db_connection import ConexionBD
 
 
 class Movimiento:
