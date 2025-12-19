@@ -1,12 +1,12 @@
 import pytest
 import datetime as dt
-from src.extract.extract_ing import read_movimientos, transformar_movimientos_csv_staging
-from src.data_model.ing.movimientos import MovimientosCSV
+from extract.extract_ing import read_movimientos, transformar_movimientos_csv_staging
+from data_model.ing.movimientos import MovimientosCSV
 
 
 @pytest.fixture(autouse=True)
 def test_filepath(monkeypatch):
-    monkeypatch.setattr("src.extract.extract_ing._get_file_path", lambda: "./tests/data/movements_ing.csv")
+    monkeypatch.setattr("extract.extract_ing._get_file_path", lambda: "./tests/data/movements_ing.csv")
 
 def test_read_movimientos():
 
