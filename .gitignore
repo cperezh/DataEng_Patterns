@@ -14,11 +14,5 @@ htmlcov/
 # IDE
 .vscode/
 
-# OS
-.DS_Store
-Thumbs.db
-
 # Project specific
-*.log
-.env
-.env.local
+logs
