@@ -1,7 +1,11 @@
 import pytest
 import datetime as dt
-from extract.extract_ing import read_movimientos, transformar_movimientos_csv_staging
+from extract.extract_ing import \
+    read_movimientos, \
+    transformar_movimientos_csv_staging, \
+    insertar_movimientos_staging
 from data_model.ing.movimientos import MovimientosCSV
+from common.db_connection import ConexionBD
 
 
 @pytest.fixture(autouse=True)
@@ -37,4 +41,13 @@ def test_transformar_movimientos_csv_staging(monkeypatch):
 
 
 def test_insertar_movimientos_staging():
+    
+    movimientos_csv = read_movimientos()
+
+    movimientos_staging = transformar_movimientos_csv_staging(movimientos_csv)
+
+    insertar_movimientos_staging(movimientos_staging)
+
+    conn = ConexionBD.obtener_conexion(host="localhost")
+    
     assert False
