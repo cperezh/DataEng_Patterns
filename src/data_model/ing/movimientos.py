@@ -1,8 +1,15 @@
+import datetime as dt
+
 class MovimientosCSV:
     
-    def __init__(self, fecha_valor: str):
+    def __init__(self, fecha_valor: str, importe: float, saldo: float):
         self.fecha_valor = fecha_valor
+        self.importe = importe
+        self.saldo = saldo
     
-
 class MovimientoStaging:
-    pass
+
+    def __init__(self, fecha_valor: str, importe: float, saldo: float):
+        self.fecha_valor = dt.datetime.strptime(fecha_valor, '%d/%m/%Y').date()
+        self.importe = importe
+        self.saldo = saldo

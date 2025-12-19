@@ -25,9 +25,12 @@ def read_movimientos() -> list[movimientos.MovimientosCSV]:
 
     print(df_movimientos_csv.shape)
 
-    for i, movimiento_csv in df_movimientos_csv.iterrows():
+    for _, movimiento_csv in df_movimientos_csv.iterrows():
 
-        movimiento_csv = movimientos.MovimientosCSV(movimiento_csv[0])
+        movimiento_csv = movimientos.MovimientosCSV(
+            movimiento_csv.iloc[0],
+            movimiento_csv.iloc[6],
+            movimiento_csv.iloc[7])
 
         movimientos_csv.append(movimiento_csv)
     
@@ -35,9 +38,20 @@ def read_movimientos() -> list[movimientos.MovimientosCSV]:
 
 
 def transformar_movimientos_csv_staging(
-        movimientos_csv: list[movimientos.MovimientosCSV]) -> list[movimientos.MovimientoStaging]:
+        movimientos_csv: list[movimientos.MovimientosCSV]
+        ) -> list[movimientos.MovimientoStaging]:
     
-    return [] 
+    movimientos_staging  = []
+
+    for mov_csv in movimientos_csv:
+        mov_staging = movimientos.MovimientoStaging(
+            mov_csv.fecha_valor,
+            mov_csv.importe,
+            mov_csv.saldo)
+    
+        movimientos_staging.append(mov_staging)
+    
+    return movimientos_staging
 
 
 def insertar_movimientos_staging(movimientos_staging: list[movimientos.MovimientoStaging]):
