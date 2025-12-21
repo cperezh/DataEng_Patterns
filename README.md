@@ -67,59 +67,11 @@ El proyecto incluye PostgreSQL y CloudBeaver en `docker-compose.yml`.
 5. Click en **Test Connection** para verificar
 6. Click en **Finish** para guardar
 
-### Opción 3: Desde aplicación Python
-```python
-import psycopg2
-
-conn = psycopg2.connect(
-    host="localhost",
-    port=5432,
-    database="pruebas",
-    user="myuser",
-    password="mypassword"
-)
-cursor = conn.cursor()
-# Ejecutar queries...
-cursor.close()
-conn.close()
-```
-
 ## Testing
 
 ### Ejecutar todos los tests
 ```bash
 pytest
-```
-
-### Ejecutar solo tests unitarios
-```bash
-pytest -m unit
-```
-
-### Ejecutar solo tests de integración
-```bash
-pytest -m integration
-```
-
-### Ejecutar un archivo específico
-```bash
-pytest tests/unit/test_example.py
-```
-
-### Ejecutar un test específico
-```bash
-pytest tests/unit/test_example.py::test_sample_data
-```
-
-### Ver cobertura de código
-```bash
-pytest --cov=src --cov-report=html
-```
-Luego abre `htmlcov/index.html` en tu navegador.
-
-### Ejecutar tests en modo verbose
-```bash
-pytest -v
 ```
 
 ## Estructura del Proyecto
@@ -149,10 +101,23 @@ pytest -v
 
 ## Desarrollo
 
-Coloca tu código en `src/` y crea tests correspondientes en `tests/unit/` o `tests/integration/`.
+Coloca tu código en `src/` y crea tests correspondientes en `test`.
 
 Los tests deben:
 - Empezar con `test_`
 - Estar en archivos que empiecen con `test_` o terminen con `_test.py`
 - Usar fixtures de `conftest.py` cuando sea posible
 - Incluir marcadores (`@pytest.mark.unit`, `@pytest.mark.integration`, etc.)
+
+## Ejecución en local
+
+La aplicación está preparada para ejecutarse en Docker, con docker-compose.
+Desde el docker-compose se inyectan las variables de entorno necesarias para la ejecución,
+como los parámetros de conexión a la base de datos.
+Para la ejecución en local, podemos utilizar un fichero de variables de entorno `run_local.env`
+e indicarlo en el fichero `settings.json` de VSC:
+
+```
+"python.envFile": "${workspaceFolder}/run_local.env"
+```
+De esta manera, VSC utiliza este fichero para la ejecución de test como para la ejecución normal.

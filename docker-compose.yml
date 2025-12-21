@@ -8,6 +8,8 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: pruebas
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
     command: ["python", "src/main.py"]
     volumes:
       - ./data:/app/data

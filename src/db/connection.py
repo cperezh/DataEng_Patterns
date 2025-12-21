@@ -7,6 +7,7 @@ gestión de la conexión usando psycopg3.
 from typing import Optional
 import psycopg
 from psycopg.rows import dict_row
+import os
 
 class ConexionBD:
     """Singleton para gestionar la conexión a la base de datos"""
@@ -14,8 +15,14 @@ class ConexionBD:
     _conexion: Optional[psycopg.Connection] = None
 
     @classmethod
-    def _inicializar(cls, host: str, port: int, database: str, user: str, password: str):
+    def _inicializar(cls):
         """Inicializa la conexión una sola vez"""
+
+        user = os.getenv("POSTGRES_USER")
+        password = os.getenv("POSTGRES_PASSWORD")
+        host = os.getenv("DB_HOST")
+        port = os.getenv("DB_PORT")
+        database = os.getenv("DB_NAME")
 
         conninfo = f"postgresql://{user}:{password}@{host}:{port}/{database}"
         
@@ -23,9 +30,7 @@ class ConexionBD:
         cls._conexion = psycopg.connect(conninfo, row_factory=dict_row)
 
     @classmethod
-    def obtener_conexion(cls, host: str = "db", port: int = 5432,
-                 database: str = "pruebas", user: str = "myuser",
-                 password: str = "mypassword") -> Optional[psycopg.Connection]:
+    def obtener_conexion(cls) -> Optional[psycopg.Connection]:
         """
         Obtiene la conexión singleton a la base de datos.
 
@@ -34,7 +39,7 @@ class ConexionBD:
         """
 
         if cls._conexion is None or cls._conexion.closed:
-            cls._inicializar(host, port, database, user, password)
+            cls._inicializar()
 
         return cls._conexion
 

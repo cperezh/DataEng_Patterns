@@ -45,6 +45,7 @@ def transformar_movimientos_csv_staging(
 
     for mov_csv in movimientos_csv:
         mov_staging = movimientos.MovimientoStaging(
+            -1,
             mov_csv.fecha_valor,
             mov_csv.importe,
             mov_csv.saldo)

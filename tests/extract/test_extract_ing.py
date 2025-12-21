@@ -5,7 +5,7 @@ from extract.extract_ing import \
     transformar_movimientos_csv_staging, \
     insertar_movimientos_staging
 from data_model.ing.movimientos import MovimientosCSV
-from common.db_connection import ConexionBD
+from db.connection import ConexionBD
 
 
 @pytest.fixture(autouse=True)
