@@ -6,6 +6,8 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: pruebas
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
     command: ["pytest"]
     volumes:
       - ./data:/app/data # Rutas absolutas local:contenedor
