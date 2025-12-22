@@ -55,26 +55,25 @@ El proyecto incluye PostgreSQL y CloudBeaver en `docker-compose.yml`.
 .
 ├── src/                            # Código fuente
 │   ├── main.py
-│   ├── pytest.ini                  # Config pytest (si ejecutas desde src/)
 │   ├── data_model/                 # Modelos de datos / entidades
-│   ├── db/                         # Acceso a datos / repositorios / conexiones
+│   ├── db/                         # Acceso a base de datos
 │   ├── extract/                    # Extracción de datos (ej: ficheros/APIs)
 │   └── etl/                        # Orquestación ETL
 ├── tests/                          # Tests (pytest)
 │   ├── data/                       # Datos de test
 │   ├── extract/
 │   └── db/
-├── data/                           # Datos de ejemplo / entrada
-├── sql/                            # Scripts SQL
-├── docker-compose.yml              # Servicios Docker (DB, CloudBeaver, etc.)
+├── data/                           # Datos entrada. Se mapea como volumen de docker.
+├── sql/                            # Scripts SQL para la creación de la base de datos.
+├── docker-compose.yml              # Fichero principal de la aplicación.
 ├── compose.tests.yaml              # Compose para ejecutar/depurar tests en Docker
 ├── compose.debug.yaml              # Compose para debugging
-├── Dockerfile                      # Imagen Docker
-├── requirements.txt                # Dependencias Python
+├── Dockerfile                      # Imagen Docker de la aplicación.
+├── requirements.txt                # Dependencias Python de al aplicación
 ├── pytest.ini                      # Configuración pytest
 ├── run_local.env                   # Variables de entorno para ejecución local
 ├── diagrams.dio                    # Diagramas (draw.io)
-├── Run ETL.sduml                   # Diagrama/flujo (StarUML)
+├── Run ETL.sduml                   # Diagrama de secuencia (https://sequencediagram.org/)
 ├── .vscode/
 │   └── settings.json               # Config VS Code (opcional)
 ├── .gitignore                      # Git ignore
@@ -103,10 +102,40 @@ De esta manera, VS Code utiliza este fichero tanto para la ejecución de tests c
 
 ### Ejecutar todos los tests
 
-- En local, ejecutar: `pytest`
-
-- Para depurar en Docker, arrancar el servicio definido en `compose.tests.yaml`. Tiene definida la app para arrancar con `pytest`.
+- En local, ejecutar: `pytest` en la raiz del proyecto, que es donde está definido `pytest.ini`. 
+- El plugin de "Python" de VSC también permite depurar desde el editor. Interpreta automáticamente el fichero de configuración de los tests.
+- Para depurar en Docker, primero es necesario arrancar el servicio de base de datos del `docker-compose.yml`. Después arrancar el servicio definido en `compose.tests.yaml`. Tiene definida la app para arrancar con `pytest`.
 
 ## Debugging
 
-- En local, con el plugin "Python Debugger", podemos depurar a través del entorno virtual instalado.
+### Local
+- Con el plugin "Python Debugger", podemos depurar a través del entorno virtual instalado. VSC utilizará el fichero `run_local.env` para inyectar la configuración de entorno.
+- Es necesario elegir la configuración de debugging de VSC "Python Debugger: Python File"
+
+### Docker
+- Para depurar en Docker, es necesario arrancar la aplicación en modo "debug" con el fichero `compose.debug.yaml`. Este servicio arranca la aplicación con "debugpy":
+      
+      /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 src/main.py 
+      
+   Y deja en espera el contenedor sin ejecutar, hasta que se reciba una conexión remota. Es **MUY IMPORTANTE** la configuración `restart: "unless-stopped"` que cada vez que termina un ciclo de depuración, reinicia el contenedor con el debugger, para que nos podamos volver a conectar con "remote attach" y así hacer más sencilla la depuración. 
+   
+   En VSC, tenemos que crear una conexión de RUN AND DEBUG "Python Debugger: Remote Attach", para conectarnos al contenedor en espera:
+   
+    ```bash
+    {
+      "name": "Python Debugger: Remote Attach",
+      "type": "debugpy",
+      "request": "attach",
+      "connect": {
+            "host": "localhost",
+            "port": 5678
+      },
+      "pathMappings": [
+            {
+               "localRoot": "${workspaceFolder}/src", # ruta local al código
+               "remoteRoot": "/app/src" # ruta al código en el contenedor
+            }
+      ]
+   }
+    ```
+   La clave está en mapear el código local al código en el contenedor, a través de la propiedad `pathMappings` y definir el puerto de escucha del debugger en `connect`

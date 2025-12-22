@@ -2,13 +2,6 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Debug Tests",
-            "type": "debugpy",
-            "request": "launch",
-            "purpose": ["debug-test"],
-            "console": "integratedTerminal"
-        },
-        {
             "name": "Python Debugger: Remote Attach",
             "type": "debugpy",
             "request": "attach",
@@ -22,21 +15,6 @@
                     "remoteRoot": "/app/src"
                 }
             ]
-        },
-        {
-            "name": "Containers: Python - General",
-            "type": "docker",
-            "request": "launch",
-            "preLaunchTask": "docker-run: debug",
-            "python": {
-                "pathMappings": [
-                    {
-                        "localRoot": "${workspaceFolder}/src",
-                        "remoteRoot": "/app/src"
-                    }
-                ],
-                "projectType": "general"
-            }
         }
     ]
 }
