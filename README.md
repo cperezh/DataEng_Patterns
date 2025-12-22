@@ -39,85 +39,74 @@ docker-compose down -v
 
 El proyecto incluye PostgreSQL y CloudBeaver en `docker-compose.yml`. 
 
-### Opción 1: CloudBeaver (navegador web)
 1. Inicia los servicios: `docker-compose up -d`
 2. Abre tu navegador en: http://localhost:8978
-3. Crea una nueva conexión a PostgreSQL:
-   - Click en **Connections** → **Create New Connection**
-   - Selecciona **PostgreSQL**
-   - Completa los datos:
-     - **Server Host**: `db` (nombre del servicio en Docker)
-     - **Port**: `5432`
-     - **Database**: `pruebas`
-     - **Username**: `myuser`
-     - **Password**: `mypassword`
-   - Click en **Test Connection** para verificar
-   - Click en **Finish** para guardar
-
-### Opción 2: DBeaver Desktop (recomendado)
-1. Descarga DBeaver desde: https://dbeaver.io/download/
-2. Abre DBeaver
-3. Crea una nueva conexión: **Database** → **New Database Connection**
-4. Selecciona **PostgreSQL** y completa los siguientes datos:
-   - **Server Host**: `localhost`
+- Datos de conexión:
+   - **Server Host**: `db` (nombre del servicio en Docker)
    - **Port**: `5432`
    - **Database**: `pruebas`
    - **Username**: `myuser`
    - **Password**: `mypassword`
-5. Click en **Test Connection** para verificar
-6. Click en **Finish** para guardar
 
-## Testing
-
-### Ejecutar todos los tests
-```bash
-pytest
-```
 
 ## Estructura del Proyecto
 
 ```
 .
-├── src/                          # Código fuente
-│   ├── __init__.py
-│   └── core/                     # Módulo principal
-│       └── __init__.py
-├── tests/                        # Tests
-│   ├── __init__.py
-│   ├── conftest.py              # Configuración pytest y fixtures
-│   ├── unit/                    # Tests unitarios
-│   │   ├── __init__.py
-│   │   └── test_example.py
-│   ├── integration/             # Tests de integración
-│   │   └── __init__.py
-│   └── fixtures/                # Fixtures de datos
-├── docker-compose.yml           # Servicios Docker
-├── Dockerfile                   # Imagen Docker
-├── requirements.txt             # Dependencias Python
-├── pytest.ini                   # Configuración pytest
-├── .gitignore                   # Git ignore
-└── README.md                    # Este archivo
+├── src/                            # Código fuente
+│   ├── main.py
+│   ├── pytest.ini                  # Config pytest (si ejecutas desde src/)
+│   ├── data_model/                 # Modelos de datos / entidades
+│   ├── db/                         # Acceso a datos / repositorios / conexiones
+│   ├── extract/                    # Extracción de datos (ej: ficheros/APIs)
+│   └── etl/                        # Orquestación ETL
+├── tests/                          # Tests (pytest)
+│   ├── data/                       # Datos de test
+│   ├── extract/
+│   └── db/
+├── data/                           # Datos de ejemplo / entrada
+├── sql/                            # Scripts SQL
+├── docker-compose.yml              # Servicios Docker (DB, CloudBeaver, etc.)
+├── compose.tests.yaml              # Compose para ejecutar/depurar tests en Docker
+├── compose.debug.yaml              # Compose para debugging
+├── Dockerfile                      # Imagen Docker
+├── requirements.txt                # Dependencias Python
+├── pytest.ini                      # Configuración pytest
+├── run_local.env                   # Variables de entorno para ejecución local
+├── diagrams.dio                    # Diagramas (draw.io)
+├── Run ETL.sduml                   # Diagrama/flujo (StarUML)
+├── .vscode/
+│   └── settings.json               # Config VS Code (opcional)
+├── .gitignore                      # Git ignore
+└── README.md                       # Este archivo
 ```
 
 ## Desarrollo
 
-Coloca tu código en `src/` y crea tests correspondientes en `test`.
-
-Los tests deben:
-- Empezar con `test_`
-- Estar en archivos que empiecen con `test_` o terminen con `_test.py`
-- Usar fixtures de `conftest.py` cuando sea posible
-- Incluir marcadores (`@pytest.mark.unit`, `@pytest.mark.integration`, etc.)
+Coloca tu código en `src/` y crea tests correspondientes en `tests/`.
 
 ## Ejecución en local
 
-La aplicación está preparada para ejecutarse en Docker, con docker-compose.
+- La aplicación está preparada para ejecutarse en Docker, con docker-compose.
 Desde el docker-compose se inyectan las variables de entorno necesarias para la ejecución,
 como los parámetros de conexión a la base de datos.
-Para la ejecución en local, podemos utilizar un fichero de variables de entorno `run_local.env`
+- Para la ejecución en local desde VS Code, podemos utilizar un fichero de variables de entorno `run_local.env`
 e indicarlo en el fichero `settings.json` de VSC:
 
-```
+```bash
 "python.envFile": "${workspaceFolder}/run_local.env"
 ```
-De esta manera, VSC utiliza este fichero para la ejecución de test como para la ejecución normal.
+
+De esta manera, VS Code utiliza este fichero tanto para la ejecución de tests como para la ejecución normal.
+
+## Testing
+
+### Ejecutar todos los tests
+
+- En local, ejecutar: `pytest`
+
+- Para depurar en Docker, arrancar el servicio definido en `compose.tests.yaml`. Tiene definida la app para arrancar con `pytest`.
+
+## Debugging
+
+- En local, con el plugin "Python Debugger", podemos depurar a través del entorno virtual instalado.
