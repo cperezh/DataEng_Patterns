@@ -1,5 +1,6 @@
 from data_model.ing import movimientos
 import pandas as pd
+import db.ing.movimientos as db_ing_movs
 
 data_path = "data/"
 
@@ -56,4 +57,5 @@ def transformar_movimientos_csv_staging(
 
 
 def insertar_movimientos_staging(movimientos_staging: list[movimientos.MovimientoStaging]):
-    pass
+    
+    db_ing_movs.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging)

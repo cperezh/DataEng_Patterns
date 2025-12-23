@@ -6,16 +6,6 @@ import pytest
 import datetime as dt
 from decimal import Decimal
 
-@pytest.fixture(autouse=True)
-def borrar_movimientos():
-
-    conn = ConexionBD.obtener_conexion()
-
-    if conn:
-        conn.execute(
-            sql.SQL("TRUNCATE TABLE bancapp.movimientos_staging"),
-        )
-
 @pytest.fixture
 def movimientos_staging():
 
@@ -30,6 +20,7 @@ def movimientos_staging():
 
 class TestMovimientosStaging:
 
+    @pytest.mark.usefixtures("borrar_movimientos_staging")
     def test_insertarMovimientosStaging_y_obtener_todos(self, movimientos_staging):
 
         MovimientosStaging.insertar_movimientos_bulk(movimientos_staging)
