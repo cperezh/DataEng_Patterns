@@ -7,19 +7,15 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
-      DB_NAME: pruebas
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      DB_NAME: produccion
+      POSTGRES_USER: prod_user
+      POSTGRES_PASSWORD: 1234
     command: ["python", "src/main.py"]
     volumes:
       - ./data:/app/data
   db:
     image: postgres
     restart: always
-    environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: pruebas
     volumes:
       - db_data:/var/lib/postgresql
       - ./sql:/docker-entrypoint-initdb.d

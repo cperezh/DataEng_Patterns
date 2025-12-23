@@ -6,6 +6,7 @@ from extract.extract_ing import \
     insertar_movimientos_staging
 from data_model.ing.movimientos import MovimientosCSV
 from db.connection import ConexionBD
+from db.ing.movimientos import MovimientosStaging
 
 
 @pytest.fixture(autouse=True)
@@ -48,6 +49,6 @@ def test_insertar_movimientos_staging():
 
     insertar_movimientos_staging(movimientos_staging)
 
-    conn = ConexionBD.obtener_conexion(host="localhost")
+    movs = MovimientosStaging.obtener_todos()
     
     assert False

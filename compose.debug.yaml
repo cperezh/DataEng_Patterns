@@ -5,9 +5,9 @@ services:
     environment:
       DB_HOST: db
       DB_PORT: 5432
-      DB_NAME: pruebas
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
+      DB_NAME: test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: 1234
     command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 src/main.py "]
     ports:
       - 5678:5678

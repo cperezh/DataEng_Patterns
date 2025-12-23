@@ -1,0 +1,9 @@
+
+CREATE USER prod_user WITH PASSWORD '1234';
+CREATE USER test_user WITH PASSWORD '1234';
+
+CREATE DATABASE produccion OWNER prod_user;
+CREATE DATABASE test OWNER test_user;
+
+GRANT CONNECT ON DATABASE produccion TO myuser;
+GRANT CONNECT ON DATABASE test TO myuser;
