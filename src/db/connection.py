@@ -30,7 +30,7 @@ class ConexionBD:
         cls._conexion = psycopg.connect(conninfo, row_factory=dict_row)
 
     @classmethod
-    def obtener_conexion(cls) -> Optional[psycopg.Connection]:
+    def obtener_conexion(cls) -> psycopg.Connection:
         """
         Obtiene la conexión singleton a la base de datos.
 
@@ -46,6 +46,6 @@ class ConexionBD:
     @classmethod
     def cerrar(cls):
         """Cierra la conexión singleton"""
-        if cls._conexion and cls._conexion !='closed':
+        if cls._conexion and cls._conexion.closed == False:
             cls._conexion.close()
             cls._conexion = None

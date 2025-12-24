@@ -25,9 +25,7 @@ def test_read_movimientos():
     assert movimientos_csv[1].saldo == -92.41
 
 
-def test_transformar_movimientos_csv_staging(monkeypatch):
-
-    movimientos_csv = ext_ing.read_movimientos()
+def test_transformar_movimientos_csv_staging(movimientos_csv):
 
     movimientos_staging = ext_ing.transformar_movimientos_csv_staging(movimientos_csv)
     
@@ -41,18 +39,15 @@ def test_transformar_movimientos_csv_staging(monkeypatch):
 
 
 @pytest.mark.usefixtures("borrar_movimientos_staging")
-def test_insertar_movimientos_staging():
+def test_insertar_movimientos_staging(movimientos_staging):
     
-    movimientos_csv = ext_ing.read_movimientos()
-
-    movimientos_staging = ext_ing.transformar_movimientos_csv_staging(movimientos_csv)
-
     ext_ing.insertar_movimientos_staging(movimientos_staging)
 
     movs_staging = MovimientosStaging.obtener_todos()
     
-    assert len(movs_staging) == 2
+    assert len(movs_staging) == 4
     assert movs_staging[0].fecha_valor == dt.date(2025, 11, 14)
     assert movs_staging[1].fecha_valor == dt.date(2025, 11, 15) 
     assert sum(mov.importe for mov in movs_staging) == Decimal("-60.70")
     assert sum(mov.saldo for mov in movs_staging) == Decimal("-84.82")
+
