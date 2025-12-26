@@ -2,8 +2,9 @@ import pytest
 import db.ing.movimientos as db_ing
 import datetime as dt
 from decimal import Decimal
-import main
 import db.connection as db
+import main
+
 
 @pytest.mark.usefixtures("borrar_movimientos_staging")
 def test_main():
