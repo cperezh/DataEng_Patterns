@@ -6,9 +6,9 @@ data_path = "data/"
 
 def extract_movimientos():
    
-   movimientos_csv = read_movimientos()
-   movimientos_staging = transformar_movimientos_csv_staging(movimientos_csv)
-   insertar_movimientos_staging(movimientos_staging)  
+   movimientos_csv = _read_movimientos()
+   movimientos_staging = _transformar_movimientos_csv_staging(movimientos_csv)
+   _insertar_movimientos_staging(movimientos_staging)  
 
 
 def _get_file_path() -> str:
@@ -16,7 +16,7 @@ def _get_file_path() -> str:
     return data_path + "/movements-15112025.csv"
 
 
-def read_movimientos() -> list[movimientos.MovimientosCSV]:
+def _read_movimientos() -> list[movimientos.MovimientosCSV]:
 
     movimientos_csv : list[movimientos.MovimientosCSV] = []
     
@@ -38,7 +38,7 @@ def read_movimientos() -> list[movimientos.MovimientosCSV]:
     return movimientos_csv
 
 
-def transformar_movimientos_csv_staging(
+def _transformar_movimientos_csv_staging(
         movimientos_csv: list[movimientos.MovimientosCSV]
         ) -> list[movimientos.MovimientoStaging]:
     
@@ -56,6 +56,6 @@ def transformar_movimientos_csv_staging(
     return movimientos_staging
 
 
-def insertar_movimientos_staging(movimientos_staging: list[movimientos.MovimientoStaging]):
+def _insertar_movimientos_staging(movimientos_staging: list[movimientos.MovimientoStaging]):
     
     db_ing_movs.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging)

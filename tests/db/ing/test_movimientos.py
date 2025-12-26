@@ -8,8 +8,8 @@ from decimal import Decimal
 
 class TestMovimientosStaging:
 
-    @pytest.mark.usefixtures("borrar_movimientos_staging")
     @pytest.mark.usefixtures("insertar_movimientos_staging")
+    @pytest.mark.usefixtures("borrar_movimientos_staging")
     def test_insertarMovimientosStaging_y_obtener_todos(self):
 
         movs_staging = MovimientosStaging.obtener_todos()
@@ -18,5 +18,5 @@ class TestMovimientosStaging:
         assert movs_staging[0].fecha_valor == dt.date(2025, 12, 31)
         assert movs_staging[3].fecha_valor == dt.date(2026, 3, 30) 
         assert sum(mov.importe for mov in movs_staging) == Decimal("550.10")
-        assert sum(mov.saldo for mov in movs_staging) == 2750.75
+        assert sum(mov.saldo for mov in movs_staging) == Decimal("2200.55")
 

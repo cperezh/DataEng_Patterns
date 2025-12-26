@@ -3,8 +3,13 @@ import db.connection as db
 
 
 
-if __name__ == "__main__":
+def main():
 
     etl_ing.run()
 
     db.ConexionBD.cerrar()
+
+
+if __name__ == "__main__":
+
+    main()
