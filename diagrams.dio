@@ -143,7 +143,10 @@
                     <mxGeometry x="304" y="828" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="2" value="Check data errors and log it" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" parent="1" vertex="1">
-                    <mxGeometry x="312" y="994" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="304" y="1069" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="Parametrizar la carga del fichero dede main" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" vertex="1" parent="1">
+                    <mxGeometry x="304" y="989" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
