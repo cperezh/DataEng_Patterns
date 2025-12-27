@@ -15,12 +15,10 @@ def test_main():
 
     movs_staging = db_ing.MovimientosStaging.obtener_todos()
     
-    assert len(movs_staging) == 2
-    assert movs_staging[1].fecha_valor == dt.date(2025, 11, 15)
+    assert len(movs_staging) == 4
     assert movs_staging[0].fecha_valor == dt.date(2025, 11, 14)
-    assert movs_staging[1].importe == 100.00
-    assert movs_staging[0].importe == Decimal("-160.70")
-    assert movs_staging[1].saldo == Decimal("7.59")
-    assert movs_staging[0].saldo == Decimal("-92.41")
+    assert movs_staging[3].fecha_valor == dt.date(2026, 12, 25)
+    assert sum(mov.importe for mov in movs_staging) == Decimal("1310.30")
+    assert sum(mov.saldo for mov in movs_staging) == Decimal("2868.76")
 
     

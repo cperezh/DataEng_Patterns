@@ -16,22 +16,33 @@ def _get_file_path() -> str:
     return data_path + "/movements-15112025.csv"
 
 
-def _read_movimientos() -> list[movimientos.MovimientosCSV]:
+def _read_movimientos_df() -> pd.DataFrame:
 
-    movimientos_csv : list[movimientos.MovimientosCSV] = []
-    
     data_file = _get_file_path()
     
     df_movimientos_csv = pd.read_csv(data_file, skiprows=3, sep=",", header=0)
 
-    print(df_movimientos_csv.shape)
+    # eliminamos los separadores de miles en el importe y el saldo y convertimos a numerico
+    df_movimientos_csv["SALDO (€)"] = df_movimientos_csv["SALDO (€)"].apply(lambda x: x.replace(",",""))
+    df_movimientos_csv["SALDO (€)"] = pd.to_numeric(df_movimientos_csv["SALDO (€)"])
+    df_movimientos_csv["IMPORTE (€)"] = df_movimientos_csv["IMPORTE (€)"].apply(lambda x: x.replace(",",""))
+    df_movimientos_csv["IMPORTE (€)"] = pd.to_numeric(df_movimientos_csv["IMPORTE (€)"])
+    
+    return df_movimientos_csv
 
+
+def _read_movimientos() -> list[movimientos.MovimientosCSV]:
+
+    movimientos_csv : list[movimientos.MovimientosCSV] = []
+
+    df_movimientos_csv = _read_movimientos_df()
+    
     for _, movimiento_csv in df_movimientos_csv.iterrows():
 
         movimiento_csv = movimientos.MovimientosCSV(
-            movimiento_csv.iloc[0],
-            movimiento_csv.iloc[6],
-            movimiento_csv.iloc[7])
+            movimiento_csv.loc["F. VALOR"],
+            movimiento_csv.loc["IMPORTE (€)"],
+            movimiento_csv.loc["SALDO (€)"])
 
         movimientos_csv.append(movimiento_csv)
     
