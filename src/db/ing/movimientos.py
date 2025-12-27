@@ -3,6 +3,7 @@ from db.connection import ConexionBD
 import data_model.ing.movimientos as dm
 import psycopg
 from psycopg.rows import class_row
+import datetime as dt
 
 class MovimientosStaging:
     
@@ -33,17 +34,17 @@ class MovimientosStaging:
         return results
         
     @staticmethod
-    def insertar_movimientos_bulk(movs: list[dm.MovimientoStaging]):
+    def insertar_movimientos_bulk(movs: list[dm.MovimientoStaging], fecha_lote: dt.datetime):
 
         conn = ConexionBD.obtener_conexion()
 
         with conn.cursor().copy(
             """
-            COPY bancapp.movimientos_staging (fecha_valor, importe, saldo) FROM STDIN
+            COPY bancapp.movimientos_staging (fecha_valor, importe, saldo, created_at) FROM STDIN
             """
             ) as copy:
             for mov in movs:
-                values =(mov.fecha_valor, mov.importe, mov.saldo)
+                values =(mov.fecha_valor, mov.importe, mov.saldo, fecha_lote)
                 copy.write_row(values)
         
         conn.commit()

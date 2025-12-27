@@ -1,6 +1,7 @@
 from data_model.ing import movimientos
 import pandas as pd
 import db.ing.movimientos as db_ing_movs
+import datetime as dt
 
 data_path = "data/"
 
@@ -69,4 +70,5 @@ def _transformar_movimientos_csv_staging(
 
 def _insertar_movimientos_staging(movimientos_staging: list[movimientos.MovimientoStaging]):
     
-    db_ing_movs.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging)
+    db_ing_movs.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, 
+                                                             dt.datetime.now())

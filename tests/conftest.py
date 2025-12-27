@@ -2,6 +2,7 @@ import pytest
 from db.connection import ConexionBD
 import db.ing.movimientos as db
 import data_model.ing.movimientos as dm
+import datetime as dt
 
 @pytest.fixture(autouse=True)
 def test_filepath(monkeypatch):
@@ -46,7 +47,7 @@ def insertar_movimientos_staging(movimientos_staging):
 
     _borrar_movimientos_staging()
 
-    db.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging)
+    db.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, dt.datetime.now())
 
 @pytest.fixture()
 def borrar_movimientos_staging():
