@@ -1,11 +1,11 @@
 <mxfile host="65bd71144e">
     <diagram id="q2N0leLUWAJB21drcBIB" name="User Story Mapping">
-        <mxGraphModel dx="701" dy="530" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1386" dy="787" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="pNfDgiI72TjYLvvPm928-29" value="" style="rounded=1;whiteSpace=wrap;html=1;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;locked=1;connectable=0;" parent="1" vertex="1">
-                    <mxGeometry x="75" y="613" width="1115" height="667" as="geometry"/>
+                    <mxGeometry x="75" y="613" width="1115" height="835" as="geometry"/>
                 </mxCell>
                 <mxCell id="pNfDgiI72TjYLvvPm928-17" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="60" y="238" width="705" height="368" as="geometry"/>
@@ -86,7 +86,7 @@
                     <mxGeometry x="167" y="829" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="pNfDgiI72TjYLvvPm928-30" value="Replace old data with new data in an account on Silver Layer" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" parent="1" vertex="1">
-                    <mxGeometry x="556" y="992" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="556" y="1077" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="pNfDgiI72TjYLvvPm928-31" value="Aggregate data for a month / account by query, dropping duplicates." style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" parent="1" vertex="1">
                     <mxGeometry x="697" y="831" width="120" height="60" as="geometry"/>
@@ -116,10 +116,10 @@
                     <mxGeometry x="982" y="1000" width="160" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="LMXPciMY57_npmahweLT-1" value="Save data in datalake" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" parent="1" vertex="1">
-                    <mxGeometry x="312" y="1149" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="304" y="1137" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="eV5lzvny4ujW24Veu8Qj-1" value="Build Gold Layer" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" parent="1" vertex="1">
-                    <mxGeometry x="560" y="1075" width="120" height="60" as="geometry"/>
+                    <mxGeometry x="556" y="1147" width="120" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="eV5lzvny4ujW24Veu8Qj-2" value="" style="endArrow=none;html=1;" parent="1" edge="1">
                     <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -145,8 +145,8 @@
                 <mxCell id="2" value="Check data errors and log it" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" parent="1" vertex="1">
                     <mxGeometry x="304" y="1069" width="120" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="Parametrizar la carga del fichero dede main" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" vertex="1" parent="1">
-                    <mxGeometry x="304" y="989" width="120" height="60" as="geometry"/>
+                <mxCell id="3" value="Parametrizar la carga del fichero desde main" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#6c8ebf;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=12;fillColor=#dae8fc;" parent="1" vertex="1">
+                    <mxGeometry x="306" y="1205" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
@@ -573,7 +573,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="CRq6HdeE6YXy6ZBe716u" name="Testing strategy">
-        <mxGraphModel dx="1523" dy="787" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1786" dy="787" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>

@@ -139,3 +139,23 @@ De esta manera, VS Code utiliza este fichero tanto para la ejecución de tests c
    }
     ```
    La clave está en mapear el código local al código en el contenedor, a través de la propiedad `pathMappings` y definir el puerto de escucha del debugger en `connect`
+
+## Source Control
+
+### Git commands
+
+- Sincronizar con remoto (+borrado de ramas no existentes)
+
+   ```bash
+      git fetch --prune
+   ```
+
+- Revisar ramas existentes en local y remoto
+
+   ```
+      git branch -avv
+   ```
+
+   - -a: ramas en local y remoto
+   - -v: verboso
+   - -v: indica el enlace entre las ramas locales y las remotas
