@@ -6,6 +6,8 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY src/ .
+COPY src src
+COPY tests tests
+COPY pytest.ini .
 
-CMD ["python", "main.py"]
+CMD ["python", "src/main.py"]

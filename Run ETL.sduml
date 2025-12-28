@@ -14,7 +14,18 @@ database Database
 Carlos->main:python main.py
 main->etl_ing:run
 etl_ing->extract_ing:extract_movimientos
+activate extract_ing
+extract_ing->extract_ing:read_movimientos_csv
+activate extract_ing
 extract_ing->File system:read movimientos\n
+deactivateafter extract_ing
+extract_ing->extract_ing:trasform_movs_csv_staging
+extract_ing->extract_ing:insertar_movimientos_staging\n
+activate extract_ing
+extract_ing->extract_ing:calcular_fecha_lote
+activate extract_ing
+deactivateafter extract_ing
 extract_ing->Database:insert movimientos staging\n
+deactivateafter extract_ing
 Carlos<-main:OK
 Carlos->Database:check duplicates query
