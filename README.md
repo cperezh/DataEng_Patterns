@@ -54,7 +54,6 @@ El proyecto incluye PostgreSQL y CloudBeaver en `docker-compose.yml`.
 ```
 .
 ├── src/                            # Código fuente
-│   ├── main.py
 │   ├── data_model/                 # Modelos de datos / entidades
 │   ├── db/                         # Acceso a base de datos
 │   ├── extract/                    # Extracción de datos (ej: ficheros/APIs)
@@ -65,17 +64,20 @@ El proyecto incluye PostgreSQL y CloudBeaver en `docker-compose.yml`.
 │   └── db/
 ├── data/                           # Datos entrada. Se mapea como volumen de docker.
 ├── sql/                            # Scripts SQL para la creación de la base de datos.
-├── docker-compose.yml              # Fichero principal de la aplicación.
-├── compose.tests.yaml              # Compose para ejecutar/depurar tests en Docker
-├── compose.debug.yaml              # Compose para debugging
+├── notebooks/                      # Notebooks de análisis
+├── querys/                         # Consultas SQL ad-hoc
+├── compose.db.yml                  # Fichero principal de la aplicación.
+├── compose.etl.tests.yaml          # Compose para ejecutar/depurar tests en Docker
+├── compose.etl.debug.yaml          # Compose para debugging
+├── compose.analytics.prod.yaml     # Compose para la ejecución de jupyter lab (prod bd)
+├── compose.analytics.test.yaml     # Compose para la ejecución de jupyter lab (test bd)
+├── compose.etl.prod.yml            # Compose para la ejecución de la etl(prod bd)
 ├── Dockerfile                      # Imagen Docker de la aplicación.
 ├── requirements.txt                # Dependencias Python de al aplicación
 ├── pytest.ini                      # Configuración pytest
 ├── run_local.env                   # Variables de entorno para ejecución local
 ├── diagrams.dio                    # Diagramas (draw.io)
 ├── Run ETL.sduml                   # Diagrama de secuencia (https://sequencediagram.org/)
-├── .vscode/
-│   └── settings.json               # Config VS Code (opcional)
 ├── .gitignore                      # Git ignore
 └── README.md                       # Este archivo
 ```
@@ -159,3 +161,11 @@ De esta manera, VS Code utiliza este fichero tanto para la ejecución de tests c
    - -a: ramas en local y remoto
    - -v: verboso
    - -v: indica el enlace entre las ramas locales y las remotas
+
+- Diferencias a nivel de fichero entre la rama actual y otra rama
+
+   ```
+      git diff --stat main 
+   ```
+
+   Compara la rama actual con "main".
