@@ -14,5 +14,5 @@ htmlcov/
 # Project specific
 logs
 
-# mypy
-.mypy_cache
+# jupyter
+notebooks/.ipynb_checkpoints
