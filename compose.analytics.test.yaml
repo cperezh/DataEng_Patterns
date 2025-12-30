@@ -1,0 +1,15 @@
+services:
+  jupyter:
+    build: .
+    restart: "no"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: 1234
+    command: ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root", "--ServerApp.token=", "--ServerApp.password="]
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/app/notebooks # Rutas absolutas local:contenedor
