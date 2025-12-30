@@ -17,3 +17,6 @@ logs
 # jupyter
 notebooks/.ipynb_checkpoints
 .ipynb_checkpoints/
+
+#mypi
+.mypy_cache/
