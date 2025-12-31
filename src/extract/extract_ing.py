@@ -14,7 +14,7 @@ def extract_movimientos():
 
 def _get_file_path() -> str:
 
-    return data_path + "/movements-2025.csv"
+    return data_path + "/movements-2024.csv"
 
 
 def _read_movimientos_df() -> pd.DataFrame:

@@ -9,5 +9,6 @@ Goal: Zoom in to check the amount of money spent by cat and the trend.
 - [x] add idem on db.ing.movimientos_staging
 - [x] update database
 - [x] update movimientos_mview with cat
-- [ ] update notebook with cat analysis
-- [ ] execute ETL main
+- [x] execute ETL main
+- [x] refresh movimientos_mview
+- [x] update notebook with cat analysis
