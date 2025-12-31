@@ -20,5 +20,7 @@ def test_main():
     assert movs_staging[3].fecha_valor == dt.date(2026, 12, 25)
     assert sum(mov.importe for mov in movs_staging) == Decimal("1310.30")
     assert sum(mov.saldo for mov in movs_staging) == Decimal("2868.76")
+    assert movs_staging[0].categoria == "Alimentación"
+    assert movs_staging[3].categoria == "Otros ingresos"
 
     

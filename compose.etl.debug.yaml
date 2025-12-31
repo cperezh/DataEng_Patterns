@@ -1,5 +1,5 @@
 services:
-  app-debug:
+  etl-debug:
     build: .
     restart: "unless-stopped"
     environment:

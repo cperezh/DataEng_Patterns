@@ -25,7 +25,8 @@ class MovimientosStaging:
                     id, 
                     TO_CHAR(fecha_valor, 'DD/MM/YYYY') as fecha_valor, 
                     importe, 
-                    saldo
+                    saldo,
+                    categoria
                 FROM bancapp.movimientos_staging
                 ORDER BY bancapp.movimientos_staging.fecha_valor ASC, id ASC
             """
@@ -40,11 +41,11 @@ class MovimientosStaging:
 
         with conn.cursor().copy(
             """
-            COPY bancapp.movimientos_staging (fecha_valor, importe, saldo, created_at) FROM STDIN
+            COPY bancapp.movimientos_staging (fecha_valor, importe, saldo, created_at, categoria) FROM STDIN
             """
             ) as copy:
             for mov in movs:
-                values =(mov.fecha_valor, mov.importe, mov.saldo, fecha_lote)
+                values =(mov.fecha_valor, mov.importe, mov.saldo, fecha_lote, mov.categoria)
                 copy.write_row(values)
         
         conn.commit()

@@ -1,5 +1,5 @@
 services:
-  etl_tests:
+  etl:
     build: .
     restart: "no"
     environment:
@@ -8,6 +8,6 @@ services:
       DB_NAME: test
       POSTGRES_USER: test_user
       POSTGRES_PASSWORD: 1234
-    command: ["pytest"]
+    command: ["python", "src/main.py"]
     volumes:
-      - ./data:/app/data # Rutas absolutas local:contenedor
+      - ./data:/app/data

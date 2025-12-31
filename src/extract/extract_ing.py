@@ -14,7 +14,7 @@ def extract_movimientos():
 
 def _get_file_path() -> str:
 
-    return data_path + "/movements-2025.csv"
+    return data_path + "/movements-2024.csv"
 
 
 def _read_movimientos_df() -> pd.DataFrame:
@@ -43,7 +43,8 @@ def _read_movimientos() -> list[movimientos.MovimientosCSV]:
         movimiento_csv = movimientos.MovimientosCSV(
             movimiento_csv.loc["F. VALOR"],
             movimiento_csv.loc["IMPORTE (€)"],
-            movimiento_csv.loc["SALDO (€)"])
+            movimiento_csv.loc["SALDO (€)"],
+            movimiento_csv.loc["CATEGORÍA"])
 
         movimientos_csv.append(movimiento_csv)
     
@@ -61,7 +62,8 @@ def _transformar_movimientos_csv_staging(
             -1,
             mov_csv.fecha_valor,
             mov_csv.importe,
-            mov_csv.saldo)
+            mov_csv.saldo,
+            mov_csv.categoria)
     
         movimientos_staging.append(mov_staging)
     
