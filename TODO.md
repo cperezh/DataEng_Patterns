@@ -4,7 +4,10 @@
 
 Goal: Zoom in to check the amount of money spent by cat and the trend.
 
-- add category on data_model.ing.movimientos_csv y movimientos_staging
-- add idem on db.ing.movimientos_staging
-- update movimientos_mview with cat
-- update notebook with cat analysis
+- [x] add category on data_model.ing.movimientos_csv
+- [x] update extract to use cat
+- [x] add idem on db.ing.movimientos_staging
+- [x] update database
+- [x] update movimientos_mview with cat
+- [ ] update notebook with cat analysis
+- [ ] execute ETL main

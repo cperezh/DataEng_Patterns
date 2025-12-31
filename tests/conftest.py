@@ -13,10 +13,10 @@ def movimientos_staging():
 
     movs_staging : list[dm.MovimientoStaging] = []
 
-    movs_staging.append(dm.MovimientoStaging(-1, "31/12/2025", 1000, 1000))
-    movs_staging.append(dm.MovimientoStaging(-1, "01/01/2026", -500, 500))
-    movs_staging.append(dm.MovimientoStaging(-1, "15/02/2026", 200.65, 700.65))
-    movs_staging.append(dm.MovimientoStaging(-1, "30/03/2026", -150.55, -0.10))
+    movs_staging.append(dm.MovimientoStaging(-1, "31/12/2025", 1000, 1000, "Educación y salud"))
+    movs_staging.append(dm.MovimientoStaging(-1, "01/01/2026", -500, 500, "Ocio y viajes"))
+    movs_staging.append(dm.MovimientoStaging(-1, "15/02/2026", 200.65, 700.65, "Alimentación"))
+    movs_staging.append(dm.MovimientoStaging(-1, "30/03/2026", -150.55, -0.10, "Vehículo y transporte"))
 
     return movs_staging
 
@@ -25,9 +25,9 @@ def movimientos_csv():
 
     movs_csv : list[dm.MovimientosCSV] = []
 
-    movs_csv.append(dm.MovimientosCSV("30/12/2025", 2000, 250.15))
-    movs_csv.append(dm.MovimientosCSV("02/01/2026", 0.75, -0.4))
-    movs_csv.append(dm.MovimientosCSV("10/02/2026", -120.1, 300))
+    movs_csv.append(dm.MovimientosCSV("30/12/2025", 2000, 250.15, "Movimientos excluidos"))
+    movs_csv.append(dm.MovimientosCSV("02/01/2026", 0.75, -0.4, "Alimentación"))
+    movs_csv.append(dm.MovimientosCSV("10/02/2026", -120.1, 300, "Vehículo y transporte"))
 
     return movs_csv
 

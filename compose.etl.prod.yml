@@ -1,5 +1,5 @@
 services:
-  app:
+  etl:
     build: .
     restart: "no"
     depends_on:
