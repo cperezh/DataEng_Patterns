@@ -1,5 +1,5 @@
 services:
-  etl:
+  etl_prod:
     build: .
     restart: "no"
     environment:

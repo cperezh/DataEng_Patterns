@@ -1,5 +1,5 @@
 services:
-  jupyter:
+  jupyter_prod:
     build: .
     restart: "no"
     environment:
