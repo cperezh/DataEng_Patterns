@@ -6,11 +6,15 @@ class MovimientosCSV:
                  fecha_valor: str, 
                  importe: float, 
                  saldo: float, 
-                 categoria: str):
+                 categoria: str,
+                 subcategoria: str,
+                 descripcion: str):
         self.fecha_valor = fecha_valor
         self.importe = importe
         self.saldo = saldo
         self.categoria = categoria
+        self.subcategoria = subcategoria
+        self.descripcion = descripcion
     
 class MovimientoStaging:
 
@@ -19,9 +23,13 @@ class MovimientoStaging:
                  fecha_valor: str, 
                  importe: float, 
                  saldo: float, 
-                 categoria: str):
+                 categoria: str,
+                 subcategoria: str,
+                 descripcion: str):
         self.id = id
         self.fecha_valor = dt.datetime.strptime(fecha_valor, '%d/%m/%Y').date()
         self.importe = importe
         self.saldo = saldo
         self.categoria = categoria
+        self.subcategoria = subcategoria
+        self.descripcion = descripcion
