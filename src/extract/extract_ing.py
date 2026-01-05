@@ -44,7 +44,9 @@ def _read_movimientos() -> list[movimientos.MovimientosCSV]:
             movimiento_csv.loc["F. VALOR"],
             movimiento_csv.loc["IMPORTE (€)"],
             movimiento_csv.loc["SALDO (€)"],
-            movimiento_csv.loc["CATEGORÍA"])
+            movimiento_csv.loc["CATEGORÍA"],
+            movimiento_csv.loc["SUBCATEGORÍA"],
+            movimiento_csv.loc["DESCRIPCIÓN"])
 
         movimientos_csv.append(movimiento_csv)
     
@@ -63,7 +65,9 @@ def _transformar_movimientos_csv_staging(
             mov_csv.fecha_valor,
             mov_csv.importe,
             mov_csv.saldo,
-            mov_csv.categoria)
+            mov_csv.categoria,
+            mov_csv.subcategoria,
+            mov_csv.descripcion)
     
         movimientos_staging.append(mov_staging)
     

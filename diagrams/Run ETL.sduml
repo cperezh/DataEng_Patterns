@@ -28,6 +28,11 @@ deactivateafter extract_ing
 extract_ing->Database:insert movimientos staging\n
 deactivateafter extract_ing
 deactivate extract_ing
+
 Carlos<-main:OK
 Carlos->Database:check duplicates query
+
 Carlos->Database:refresh materialized view
+activate Database
+Database->Database:refresh movimientos_mview
+deactivateafter Database

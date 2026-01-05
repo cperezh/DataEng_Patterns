@@ -22,5 +22,9 @@ def test_main():
     assert sum(mov.saldo for mov in movs_staging) == Decimal("2868.76")
     assert movs_staging[0].categoria == "Alimentación"
     assert movs_staging[3].categoria == "Otros ingresos"
+    assert movs_staging[0].subcategoria == "Supermercados y alimentación"
+    assert movs_staging[3].subcategoria == "Ingresos de otras entidades"
+    assert movs_staging[0].descripcion == "Pago en MERCADONA C MA MADRID ES"
+    assert movs_staging[3].descripcion == "Transferencia recibida de CARLOS ANTONIO PEREZ HAURIE GASTOS"
 
     
