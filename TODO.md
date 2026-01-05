@@ -8,8 +8,8 @@ Goal: Load subcategories and descriptions to zoom into expendings analysis.
 - [x] add subcategory and desc on data_model.ing.movimientos_csv
 - [x] update extract to use subcategory and desc
 - [x] add idem on db.ing.movimientos_staging
-- [ ] update table movimientos_staging
-- [ ] update mview movimientos_mview with subcategory and desc
+- [x] update table movimientos_staging
+- [x] update mview movimientos_mview with subcategory and desc
 - [ ] execute ETL main to backfill movementos from 2023, 2024 and 2025
 - [ ] refresh movimientos_mview
 - [ ] update notebook with cat analysis
