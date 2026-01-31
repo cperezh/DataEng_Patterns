@@ -1,4 +1,5 @@
 # DataEng Patterns
+___
 
 **Proyecto para la gestión de los gastos bancarios familiares.**
 
@@ -16,6 +17,7 @@ Existen tres artefactos ejecutables:
 ![](/diagrams/artifacts.png)
 
 ## Ejecución del proyecto
+___
 
 Existen dos acciones principales a realizar en el proyecto: actualizar la base de datos con nuevos datos y revisar y analizar los mismos a través del notebook. En ambos casos, la primera acción a realizar es levantar la base de datos.
 
@@ -25,7 +27,7 @@ docker-compose -f compose.db.yml up -d
 
 También podemos acceder directamente a la base de datos, a través del servicio de **CloudBeaver**
 
-```bash
+```
 http://localhost:8978/
 ```
 
@@ -35,16 +37,22 @@ Nos logamos en CloudBeaver como administradores, para acceder a todas las bases 
 -  pass: s5Z@33FHaGukh5B
 
 
-### Actualizar datos en la base de datos
+### **Actualizar datos en la base de datos**
 
 1. Actualizar el nombre del fichero de datos a cargar.
    - Para ello, editar el fichero ```src\extract\extract_ing.py```, cambiando la función ```_get_file_path``` para que devuelva el fichero a cargar.
    - El sistema deduplica los movimientos por fecha_valor, importe y saldo, quedándose con el más reciente en caso de conflicto.
-2. Ejecutar la ETL ``` docker-compose -f compose.etl.run.prod.yml up -d ```
+2. Ejecutar la ETL 
+  ```bash
+  docker-compose -f compose.etl.run.prod.yml up -d
+  ```
 3. Refrescar la vista materializada.
-   - Ejecutar ```REFRESH MATERIALIZED VIEW CONCURRENTLY bancapp.movimientos_mview``` en la base de datos.
+   - Ejecutar en la base de datos.
+```sql
+REFRESH MATERIALIZED VIEW CONCURRENTLY bancapp.movimientos_mview
+``` 
 
-### Revisar y refinar la analítica del proyecto
+### **Revisar y refinar la analítica del proyecto**
 
 Para ello, vamos a utilizar la imagen de docker del código de la ETL, dado que tiene las clases de conexión a la base de datos y las vamos a utilizar en el notebook de análisis.
 
