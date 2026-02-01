@@ -44,7 +44,7 @@ Nos logamos en CloudBeaver como administradores, para acceder a todas las bases 
    - El sistema deduplica los movimientos por fecha_valor, importe y saldo, quedándose con el más reciente en caso de conflicto.
 2. Ejecutar la ETL 
   ```bash
-  docker-compose -f compose.etl.run.prod.yml up -d
+  docker-compose -f compose.etl.run.prod.yml up -d --build
   ```
 3. Refrescar la vista materializada.
    - Ejecutar en la base de datos.
