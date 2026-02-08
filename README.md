@@ -22,8 +22,10 @@ ___
 Existen dos acciones principales a realizar en el proyecto: actualizar la base de datos con nuevos datos y revisar y analizar los mismos a través del notebook. En ambos casos, la primera acción a realizar es levantar la base de datos.
 
 ```bash
-docker-compose -f compose.db.yml up -d
+docker compose -f compose.db.yml up -d
 ```
+
+La primera vez que creemos la creemos el servidor de postgres TODO HERE
 
 También podemos acceder directamente a la base de datos, a través del servicio de **CloudBeaver**
 
@@ -44,7 +46,7 @@ Nos logamos en CloudBeaver como administradores, para acceder a todas las bases 
    - El sistema deduplica los movimientos por fecha_valor, importe y saldo, quedándose con el más reciente en caso de conflicto.
 2. Ejecutar la ETL 
   ```bash
-  docker-compose -f compose.etl.run.prod.yml up -d --build
+  docker compose -f compose.etl.run.prod.yml up -d --build
   ```
 3. Refrescar la vista materializada.
    - Ejecutar en la base de datos.
@@ -59,7 +61,7 @@ Para ello, vamos a utilizar la imagen de docker del código de la ETL, dado que 
 Lanzamos el comando para levantar una sesión de jupyter dockerizada
 
 ```bash
-docker-compose -f compose.analytics.prod.yaml up -d
+docker compose -f compose.analytics.prod.yaml up -d
 ```
 y accedemos a [Jupyter](http://127.0.0.1:8888/lab/workspaces/auto-p/tree/notebooks)
 

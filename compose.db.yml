@@ -6,7 +6,9 @@ services:
       - db_data:/var/lib/postgresql
     ports:
       - "5432:5432" # PUERTO_HOST:PUERTO_CONTENEDOR
-
+    environment:
+      POSTGRES_PASSWORD: 1234
+      
   cloudbeaver:
     image: dbeaver/cloudbeaver:latest
     restart: unless-stopped
