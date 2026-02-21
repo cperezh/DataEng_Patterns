@@ -25,7 +25,7 @@ Existen dos acciones principales a realizar en el proyecto: actualizar la base d
 docker compose -f compose.db.yml up -d
 ```
 
-La primera vez que creemos la creemos el servidor de postgres TODO HERE
+La primera vez que creemos la creemos el servidor de postgres, será necesario lanzar los scripts de creación de la base datos, en la carpeta ```sql```
 
 También podemos acceder directamente a la base de datos, a través del servicio de **CloudBeaver**
 
@@ -36,7 +36,7 @@ http://localhost:8978/
 Nos logamos en CloudBeaver como administradores, para acceder a todas las bases de datos registradas
 
 - usr: cbadmin
--  pass: s5Z@33FHaGukh5B
+- pass: s5Z@33FHaGukh5B
 
 
 ### **Actualizar datos en la base de datos**
