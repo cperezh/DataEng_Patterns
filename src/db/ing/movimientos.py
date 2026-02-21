@@ -1,6 +1,6 @@
 
 from db.connection import ConexionBD
-import data_model.ing.movimientos as dm
+import data_model.ing as dming
 import psycopg
 from psycopg.rows import class_row
 import datetime as dt
@@ -9,7 +9,7 @@ class MovimientosStaging:
     
 
     @staticmethod
-    def obtener_todos() -> list[dm.MovimientoStaging]:
+    def obtener_todos() -> list[dming.MovimientoStaging]:
         """
         Obtiene todos los movimientos de la base de datos.
         
@@ -19,7 +19,7 @@ class MovimientosStaging:
 
         conn = ConexionBD.obtener_conexion()
         
-        results = conn.cursor(row_factory=class_row(dm.MovimientoStaging)).execute(
+        results = conn.cursor(row_factory=class_row(dming.MovimientoStaging)).execute(
             """
                 SELECT 
                     id, 
@@ -37,7 +37,7 @@ class MovimientosStaging:
         return results
         
     @staticmethod
-    def insertar_movimientos_bulk(movs: list[dm.MovimientoStaging], fecha_lote: dt.datetime):
+    def insertar_movimientos_bulk(movs: list[dming.MovimientoStaging], fecha_lote: dt.datetime):
 
         conn = ConexionBD.obtener_conexion()
 

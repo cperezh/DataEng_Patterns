@@ -1,8 +1,6 @@
 import pytest
 import datetime as dt
 import extract.extract_ing as ext_ing
-from data_model.ing.movimientos import MovimientosCSV
-from db.connection import ConexionBD
 from db.ing.movimientos import MovimientosStaging
 from decimal import Decimal
 

@@ -1,4 +1,4 @@
-from data_model.ing import movimientos
+import data_model.ing as dming
 import pandas as pd
 import db.ing.movimientos as db_ing_movs
 import datetime as dt
@@ -32,15 +32,15 @@ def _read_movimientos_df() -> pd.DataFrame:
     return df_movimientos_csv
 
 
-def _read_movimientos() -> list[movimientos.MovimientosCSV]:
+def _read_movimientos() -> list[dming.MovimientosCSV]:
 
-    movimientos_csv : list[movimientos.MovimientosCSV] = []
+    movimientos_csv : list[dming.MovimientosCSV] = []
 
     df_movimientos_csv = _read_movimientos_df()
     
     for _, movimiento_csv in df_movimientos_csv.iterrows():
 
-        movimiento_csv = movimientos.MovimientosCSV(
+        movimiento_csv = dming.MovimientosCSV(
             movimiento_csv.loc["F. VALOR"],
             movimiento_csv.loc["IMPORTE (€)"],
             movimiento_csv.loc["SALDO (€)"],
@@ -54,13 +54,13 @@ def _read_movimientos() -> list[movimientos.MovimientosCSV]:
 
 
 def _transformar_movimientos_csv_staging(
-        movimientos_csv: list[movimientos.MovimientosCSV]
-        ) -> list[movimientos.MovimientoStaging]:
+        movimientos_csv: list[dming.MovimientosCSV]
+        ) -> list[dming.MovimientoStaging]:
     
     movimientos_staging  = []
 
     for mov_csv in movimientos_csv:
-        mov_staging = movimientos.MovimientoStaging(
+        mov_staging = dming.MovimientoStaging(
             -1,
             mov_csv.fecha_valor,
             mov_csv.importe,
@@ -74,7 +74,7 @@ def _transformar_movimientos_csv_staging(
     return movimientos_staging
 
 
-def _insertar_movimientos_staging(movimientos_staging: list[movimientos.MovimientoStaging]):
+def _insertar_movimientos_staging(movimientos_staging: list[dming.MovimientoStaging]):
     
     db_ing_movs.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, 
                                                              dt.datetime.now())
