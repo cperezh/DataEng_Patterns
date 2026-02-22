@@ -1,5 +1,5 @@
 import pytest
-from db.connection import ConexionBD
+import db
 import db.ing as db_ing
 import data_model.ing as dming
 import datetime as dt
@@ -39,7 +39,7 @@ def _borrar_movimientos_staging():
     Sirve a los fixtures que trabajan sobre la tabla de staging
     """
 
-    conn = ConexionBD.obtener_conexion()
+    conn = db.ConexionBD.obtener_conexion()
     conn.execute("TRUNCATE TABLE bancapp.movimientos_staging")
     conn.commit()
 

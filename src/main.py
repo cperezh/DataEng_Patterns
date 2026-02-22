@@ -1,5 +1,5 @@
 from etl import etl_ing
-import db.connection as db
+import db
 
 
 

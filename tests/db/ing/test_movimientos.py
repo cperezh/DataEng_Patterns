@@ -1,6 +1,4 @@
 from db.ing.MovimientosStaging import MovimientosStaging
-from db.connection import ConexionBD
-from psycopg import sql
 import pytest
 import datetime as dt
 from decimal import Decimal

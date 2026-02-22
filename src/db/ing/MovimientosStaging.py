@@ -1,5 +1,5 @@
 
-from db.connection import ConexionBD
+import db
 import data_model.ing as dming
 from psycopg.rows import class_row
 import datetime as dt
@@ -16,7 +16,7 @@ class MovimientosStaging:
             Lista de MovimientoStaging
         """
 
-        conn = ConexionBD.obtener_conexion()
+        conn = db.ConexionBD.obtener_conexion()
         
         results = conn.cursor(row_factory=class_row(dming.MovimientoStaging)).execute(
             """
@@ -25,7 +25,7 @@ class MovimientosStaging:
                     TO_CHAR(fecha_valor, 'DD/MM/YYYY') as fecha_valor, 
                     importe, 
                     saldo,
-                    categoria,
+                    categoria,  
                     subcategoria,
                     descripcion
                 FROM bancapp.movimientos_staging
@@ -38,7 +38,7 @@ class MovimientosStaging:
     @staticmethod
     def insertar_movimientos_bulk(movs: list[dming.MovimientoStaging], fecha_lote: dt.datetime):
 
-        conn = ConexionBD.obtener_conexion()
+        conn = db.ConexionBD.obtener_conexion()
 
         with conn.cursor().copy(
             """

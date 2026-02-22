@@ -2,7 +2,7 @@ import pytest
 import db.ing as db_ing
 import datetime as dt
 from decimal import Decimal
-import db.connection as db
+import db
 import main
 
 
