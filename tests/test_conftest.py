@@ -1,7 +1,7 @@
 import pytest
 from conftest import borrar_movimientos_staging
 from db.connection import ConexionBD
-import db.ing.movimientos as db
+import db.ing.MovimientosStaging as db
 
 @pytest.mark.usefixtures("borrar_movimientos_staging")
 @pytest.mark.usefixtures("insertar_movimientos_staging")

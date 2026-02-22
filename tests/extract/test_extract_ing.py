@@ -1,7 +1,7 @@
 import pytest
 import datetime as dt
 import extract.extract_ing as ext_ing
-from db.ing.movimientos import MovimientosStaging
+from db.ing.MovimientosStaging import MovimientosStaging
 from decimal import Decimal
 
 

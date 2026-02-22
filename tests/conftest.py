@@ -1,6 +1,6 @@
 import pytest
 from db.connection import ConexionBD
-import db.ing.movimientos as db
+import db.ing as db_ing
 import data_model.ing as dming
 import datetime as dt
 
@@ -48,7 +48,7 @@ def insertar_movimientos_staging(movimientos_staging):
 
     _borrar_movimientos_staging()
 
-    db.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, dt.datetime.now())
+    db_ing.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, dt.datetime.now())
 
 @pytest.fixture()
 def borrar_movimientos_staging():

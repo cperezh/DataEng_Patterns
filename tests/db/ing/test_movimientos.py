@@ -1,4 +1,4 @@
-from db.ing.movimientos import MovimientosStaging
+from db.ing.MovimientosStaging import MovimientosStaging
 from db.connection import ConexionBD
 from psycopg import sql
 import pytest

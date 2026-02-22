@@ -1,7 +1,6 @@
 
 from db.connection import ConexionBD
 import data_model.ing as dming
-import psycopg
 from psycopg.rows import class_row
 import datetime as dt
 
