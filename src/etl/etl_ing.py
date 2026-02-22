@@ -1,4 +1,4 @@
-from extract import extract_ing
+from etl.bronze import extract_ing
 
 def run():
     extract_ing.extract_movimientos()

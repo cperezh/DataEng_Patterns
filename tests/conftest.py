@@ -6,7 +6,7 @@ import datetime as dt
 
 @pytest.fixture(autouse=True)
 def test_filepath(monkeypatch):
-    monkeypatch.setattr("extract.extract_ing._get_file_path", lambda: "./tests/data/movements_ing.csv")
+    monkeypatch.setattr("etl.bronze.extract_ing._get_file_path", lambda: "./tests/data/movements_ing.csv")
 
 @pytest.fixture
 def movimientos_staging():
