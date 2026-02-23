@@ -7,7 +7,7 @@ import main
 
 
 @pytest.mark.usefixtures("borrar_movimientos_staging")
-def test_main():
+def test_main_staging():
     
     main.main()
 
@@ -27,4 +27,13 @@ def test_main():
     assert movs_staging[0].descripcion == "Pago en MERCADONA C MA MADRID ES"
     assert movs_staging[3].descripcion == "Transferencia recibida de CARLOS ANTONIO PEREZ HAURIE GASTOS"
 
-    
+@pytest.mark.usefixtures("borrar_movimientos_staging")
+def test_main():
+
+    main.main()
+
+    assert db.ConexionBD._conexion == None
+
+    movs_silver = db_ing.MovimientosSilver.obtener_todos()
+
+    assert len(movs_silver) == 4

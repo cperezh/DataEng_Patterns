@@ -1,2 +1,3 @@
 from .MovimientosCSV import MovimientosCSV
 from .MovimientoStaging import MovimientoStaging
+from .MovimientosSilver import MovimientosSilver

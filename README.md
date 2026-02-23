@@ -38,6 +38,11 @@ Nos logamos en CloudBeaver como administradores, para acceder a todas las bases 
 - usr: cbadmin
 - pass: s5Z@33FHaGukh5B
 
+Y después como administradores de la base de datos:
+
+- usr: postgres
+- pass: 1234
+
 
 ### **Actualizar datos en la base de datos**
 
