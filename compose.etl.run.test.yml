@@ -8,6 +8,6 @@ services:
       DB_NAME: test
       POSTGRES_USER: test_user
       POSTGRES_PASSWORD: 1234
-    command: ["python", "src/main.py"]
+    command: ["python", "src/main.py", "movements-2022.csv"]
     volumes:
       - ./data:/app/data

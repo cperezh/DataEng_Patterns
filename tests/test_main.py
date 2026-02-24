@@ -9,7 +9,7 @@ import main
 @pytest.mark.usefixtures("borrar_movimientos_staging")
 def test_main():
     
-    main.main()
+    main.main("")
 
     assert db.ConexionBD._conexion == None
 
