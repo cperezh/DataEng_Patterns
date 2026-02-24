@@ -57,17 +57,20 @@ def _transformar_movimientos_csv_staging(
         movimientos_csv: list[dm_ing.MovimientosCSV]
         ) -> list[dm_ing.MovimientoStaging]:
     
+    ahora = dt.datetime.now()
+    
     movimientos_staging  = []
 
     for mov_csv in movimientos_csv:
         mov_staging = dm_ing.MovimientoStaging(
             -1,
-            mov_csv.fecha_valor,
+            dt.datetime.strptime(mov_csv.fecha_valor,"%d/%m/%Y").date(),
             mov_csv.importe,
             mov_csv.saldo,
             mov_csv.categoria,
             mov_csv.subcategoria,
-            mov_csv.descripcion)
+            mov_csv.descripcion,
+            ahora)
     
         movimientos_staging.append(mov_staging)
     

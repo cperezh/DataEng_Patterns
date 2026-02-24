@@ -12,7 +12,4 @@ class MovimientoStaging:
     categoria: str
     subcategoria: str
     descripcion: str
-    
-
-    def __post_init__(self):
-        self.fecha_valor = dt.datetime.strptime(self.fecha_valor, "%d/%m/%Y").date()
+    created_at: dt.datetime.date

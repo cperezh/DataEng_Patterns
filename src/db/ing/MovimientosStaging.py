@@ -22,14 +22,15 @@ class MovimientosStaging:
             """
                 SELECT 
                     id, 
-                    TO_CHAR(fecha_valor, 'DD/MM/YYYY') as fecha_valor, 
+                    fecha_valor, 
                     importe, 
                     saldo,
                     categoria,  
                     subcategoria,
-                    descripcion
+                    descripcion,
+                    created_at
                 FROM bancapp.movimientos_staging
-                ORDER BY bancapp.movimientos_staging.fecha_valor ASC, id ASC
+                ORDER BY fecha_valor ASC, id ASC
             """
         ).fetchall()
         

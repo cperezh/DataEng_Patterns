@@ -31,3 +31,14 @@ class MovimientosSilver:
         ).fetchall()
         
         return results
+    
+    
+    @staticmethod
+    def refresh_movimientos():
+        '''
+            Ejecuta un refresh de la vista materializada de movimientos
+        '''
+
+        conn = db.ConexionBD.obtener_conexion()
+
+        conn.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY bancapp.movimientos_mview")

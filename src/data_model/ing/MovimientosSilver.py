@@ -12,6 +12,3 @@ class MovimientosSilver:
     descripcion: str
     created_at: dt.datetime.date
 
-    def __post_init__(self):
-        self.fecha_valor = dt.datetime.strptime(self.fecha_valor, "%d/%m/%Y").date()
-        self.created_at = dt.datetime.strptime(self.created_at, "%d/%m/%Y").date()
