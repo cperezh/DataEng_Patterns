@@ -1,6 +1,6 @@
-from data_model.ing import movimientos
+import data_model.ing as dm_ing
+import db.ing as db_ing
 import pandas as pd
-import db.ing.movimientos as db_ing_movs
 import datetime as dt
 
 data_path = "data/"
@@ -14,7 +14,7 @@ def extract_movimientos():
 
 def _get_file_path() -> str:
 
-    return data_path + "/movements-2026.csv"
+    return data_path + "/movements-2022.csv"
 
 
 def _read_movimientos_df() -> pd.DataFrame:
@@ -32,15 +32,15 @@ def _read_movimientos_df() -> pd.DataFrame:
     return df_movimientos_csv
 
 
-def _read_movimientos() -> list[movimientos.MovimientosCSV]:
+def _read_movimientos() -> list[dm_ing.MovimientosCSV]:
 
-    movimientos_csv : list[movimientos.MovimientosCSV] = []
+    movimientos_csv : list[dm_ing.MovimientosCSV] = []
 
     df_movimientos_csv = _read_movimientos_df()
     
     for _, movimiento_csv in df_movimientos_csv.iterrows():
 
-        movimiento_csv = movimientos.MovimientosCSV(
+        movimiento_csv = dm_ing.MovimientosCSV(
             movimiento_csv.loc["F. VALOR"],
             movimiento_csv.loc["IMPORTE (€)"],
             movimiento_csv.loc["SALDO (€)"],
@@ -54,27 +54,30 @@ def _read_movimientos() -> list[movimientos.MovimientosCSV]:
 
 
 def _transformar_movimientos_csv_staging(
-        movimientos_csv: list[movimientos.MovimientosCSV]
-        ) -> list[movimientos.MovimientoStaging]:
+        movimientos_csv: list[dm_ing.MovimientosCSV]
+        ) -> list[dm_ing.MovimientoStaging]:
+    
+    ahora = dt.datetime.now()
     
     movimientos_staging  = []
 
     for mov_csv in movimientos_csv:
-        mov_staging = movimientos.MovimientoStaging(
+        mov_staging = dm_ing.MovimientoStaging(
             -1,
-            mov_csv.fecha_valor,
+            dt.datetime.strptime(mov_csv.fecha_valor,"%d/%m/%Y").date(),
             mov_csv.importe,
             mov_csv.saldo,
             mov_csv.categoria,
             mov_csv.subcategoria,
-            mov_csv.descripcion)
+            mov_csv.descripcion,
+            ahora)
     
         movimientos_staging.append(mov_staging)
     
     return movimientos_staging
 
 
-def _insertar_movimientos_staging(movimientos_staging: list[movimientos.MovimientoStaging]):
+def _insertar_movimientos_staging(movimientos_staging: list[dm_ing.MovimientoStaging]):
     
-    db_ing_movs.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, 
+    db_ing.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, 
                                                              dt.datetime.now())

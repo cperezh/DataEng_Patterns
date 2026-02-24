@@ -1,7 +1,6 @@
 
-from db.connection import ConexionBD
-import data_model.ing.movimientos as dm
-import psycopg
+import db
+import data_model.ing as dm_ing
 from psycopg.rows import class_row
 import datetime as dt
 
@@ -9,7 +8,7 @@ class MovimientosStaging:
     
 
     @staticmethod
-    def obtener_todos() -> list[dm.MovimientoStaging]:
+    def obtener_todos() -> list[dm_ing.MovimientoStaging]:
         """
         Obtiene todos los movimientos de la base de datos.
         
@@ -17,29 +16,30 @@ class MovimientosStaging:
             Lista de MovimientoStaging
         """
 
-        conn = ConexionBD.obtener_conexion()
+        conn = db.ConexionBD.obtener_conexion()
         
-        results = conn.cursor(row_factory=class_row(dm.MovimientoStaging)).execute(
+        results = conn.cursor(row_factory=class_row(dm_ing.MovimientoStaging)).execute(
             """
                 SELECT 
                     id, 
-                    TO_CHAR(fecha_valor, 'DD/MM/YYYY') as fecha_valor, 
+                    fecha_valor, 
                     importe, 
                     saldo,
-                    categoria,
+                    categoria,  
                     subcategoria,
-                    descripcion
+                    descripcion,
+                    created_at
                 FROM bancapp.movimientos_staging
-                ORDER BY bancapp.movimientos_staging.fecha_valor ASC, id ASC
+                ORDER BY fecha_valor ASC, id ASC
             """
         ).fetchall()
         
         return results
         
     @staticmethod
-    def insertar_movimientos_bulk(movs: list[dm.MovimientoStaging], fecha_lote: dt.datetime):
+    def insertar_movimientos_bulk(movs: list[dm_ing.MovimientoStaging], fecha_lote: dt.datetime):
 
-        conn = ConexionBD.obtener_conexion()
+        conn = db.ConexionBD.obtener_conexion()
 
         with conn.cursor().copy(
             """

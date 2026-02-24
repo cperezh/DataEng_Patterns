@@ -38,6 +38,11 @@ Nos logamos en CloudBeaver como administradores, para acceder a todas las bases 
 - usr: cbadmin
 - pass: s5Z@33FHaGukh5B
 
+Y después como administradores de la base de datos:
+
+- usr: postgres
+- pass: 1234
+
 
 ### **Actualizar datos en la base de datos**
 
@@ -140,11 +145,18 @@ docker compose -f <compose.yaml> up --build
 
 ## Testing
 
-### Ejecutar todos los tests
+### Local
 
-- En local, ejecutar: `pytest` en la raiz del proyecto, que es donde está definido `pytest.ini`. 
+- Ejecutar: `pytest` en la raiz del proyecto, que es donde está definido `pytest.ini`. 
 - El plugin de "Python" de VSC también permite depurar desde el editor. Interpreta automáticamente el fichero de configuración de los tests.
-- Para depurar en Dockervhay que arrancar el servicio definido en `compose.tests.yaml`. Tiene definida la app para arrancar con `pytest`.
+
+### Docker
+
+- Para depurar en Docker hay que arrancar el servicio definido en `compose.tests.yaml`. Tiene definida la app para arrancar con `pytest`.
+
+```
+docker compose -f 'compose.etl.tests.yaml' up -d --build 'etl_tests'
+```
 
 ## Debugging
 

@@ -1,8 +1,8 @@
 import pytest
-import db.ing.movimientos as db_ing
+import db.ing as db_ing
 import datetime as dt
 from decimal import Decimal
-import db.connection as db
+import db
 import main
 
 
@@ -27,4 +27,7 @@ def test_main():
     assert movs_staging[0].descripcion == "Pago en MERCADONA C MA MADRID ES"
     assert movs_staging[3].descripcion == "Transferencia recibida de CARLOS ANTONIO PEREZ HAURIE GASTOS"
 
-    
+    movs_silver = db_ing.MovimientosSilver.obtener_todos()
+
+    assert len(movs_silver) == 4
+
