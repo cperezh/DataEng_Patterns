@@ -3,7 +3,7 @@ from etl.silver import silver_ing
 import db.ing
 
 
-@pytest.mark.usefixtures("movimientos_staging_duplicates")
+@pytest.mark.usefixtures("insertar_movimientos_staging_duplicates")
 def test_refresh_movimientos():
 
     silver_ing.refresh_movimientos()

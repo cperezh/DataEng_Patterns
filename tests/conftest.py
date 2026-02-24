@@ -11,29 +11,30 @@ def test_filepath(monkeypatch):
 @pytest.fixture
 def movimientos_staging():
 
+    fecha_lote = dt.date(2025,3,25)
+
     movs_staging : list[dm_ing.MovimientoStaging] = []
 
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("31/12/2025","%d/%m/%Y").date(), 1000, 1000, "Educación y salud", "Deporte y gimnasio", "Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES", dt.date(2025,3,25)))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("01/01/2026","%d/%m/%Y").date(), -500, 500, "Ocio y viajes", "Libros, música y videojuegos", "Pago en Nintendo EM9861ff0c2d5", dt.date(2025,3,25)))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("15/02/2026","%d/%m/%Y").date(), 200.65, 700.65, "Alimentación", "Supermercados y alimentación","Pago en DIA 9098 CANDELEDA ES", dt.date(2025,3,25)))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("30/03/2026","%d/%m/%Y").date(), -150.55, -0.10, "Vehículo y transporte", "Gasolina y combustible" , "Pago en E.S. CEDIPSA MONTILLA S ENRIQUE GUAES", dt.date(2025,3,25)))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("31/12/2025","%d/%m/%Y").date(), 1000, 1000, "Educación y salud", "Deporte y gimnasio", "Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES", fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("01/01/2026","%d/%m/%Y").date(), -500, 500, "Ocio y viajes", "Libros, música y videojuegos", "Pago en Nintendo EM9861ff0c2d5", fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("15/02/2026","%d/%m/%Y").date(), 200.65, 700.65, "Alimentación", "Supermercados y alimentación","Pago en DIA 9098 CANDELEDA ES", fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("30/03/2026","%d/%m/%Y").date(), -150.55, -0.10, "Vehículo y transporte", "Gasolina y combustible" , "Pago en E.S. CEDIPSA MONTILLA S ENRIQUE GUAES", fecha_lote))
     
 
     return movs_staging
 
 @pytest.fixture
 def movimientos_staging_duplicates():
+    '''
+        duplicados creados con fecha posterior
+    '''
+
+    fecha_lote = dt.date(2025,3,30)
 
     movs_staging : list[dm_ing.MovimientoStaging] = []
-
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("31/12/2025","%d/%m/%Y").date(), 1000, 1000, "Educación y salud", "Deporte y gimnasio", "Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES",dt.date(2025,3,25)))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("01/01/2026","%d/%m/%Y").date(), -500, 500, "Ocio y viajes", "Libros, música y videojuegos", "Pago en Nintendo EM9861ff0c2d5",dt.date(2025,3,25)))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("15/02/2026","%d/%m/%Y").date(), 200.65, 700.65, "Alimentación", "Supermercados y alimentación","Pago en DIA 9098 CANDELEDA ES",dt.date(2025,3,25)))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("30/03/2026","%d/%m/%Y").date(), -150.55, -0.10, "Vehículo y transporte", "Gasolina y combustible" , "Pago en E.S. CEDIPSA MONTILLA S ENRIQUE GUAES",dt.date(2025,3,25)))
     
-    #duplicados creados con fecha posterior
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("31/12/2025","%d/%m/%Y").date(), 1000, 1000, "Educación y salud", "Deporte y gimnasio", "POSTERIOR - Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES",dt.date(2025,3,30)))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("01/01/2026","%d/%m/%Y").date(), -500, 500, "Ocio y viajes", "Libros, música y videojuegos", "POSTERIOR - Pago en Nintendo EM9861ff0c2d5",dt.date(2025,3,30)))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("31/12/2025","%d/%m/%Y").date(), 1000, 1000, "Educación y salud", "Deporte y gimnasio", "POSTERIOR - Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES",fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("01/01/2026","%d/%m/%Y").date(), -500, 500, "Ocio y viajes", "Libros, música y videojuegos", "POSTERIOR - Pago en Nintendo EM9861ff0c2d5", fecha_lote))
 
     return movs_staging
 
@@ -67,11 +68,12 @@ def insertar_movimientos_staging(movimientos_staging):
     db_ing.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, dt.datetime.now())
 
 @pytest.fixture()
-def insertar_movimientos_staging_duplicates(movimientos_staging_duplicates):
+def insertar_movimientos_staging_duplicates(movimientos_staging, movimientos_staging_duplicates):
 
     _borrar_movimientos_staging()
 
-    db_ing.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging_duplicates, dt.datetime.now())
+    db_ing.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging, dt.date(2025,3,25))
+    db_ing.MovimientosStaging.insertar_movimientos_bulk(movimientos_staging_duplicates, dt.date(2025,3,30))
 
 @pytest.fixture()
 def borrar_movimientos_staging():
