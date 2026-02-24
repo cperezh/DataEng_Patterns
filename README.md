@@ -145,11 +145,18 @@ docker compose -f <compose.yaml> up --build
 
 ## Testing
 
-### Ejecutar todos los tests
+### Local
 
-- En local, ejecutar: `pytest` en la raiz del proyecto, que es donde está definido `pytest.ini`. 
+- Ejecutar: `pytest` en la raiz del proyecto, que es donde está definido `pytest.ini`. 
 - El plugin de "Python" de VSC también permite depurar desde el editor. Interpreta automáticamente el fichero de configuración de los tests.
-- Para depurar en Dockervhay que arrancar el servicio definido en `compose.tests.yaml`. Tiene definida la app para arrancar con `pytest`.
+
+### Docker
+
+- Para depurar en Docker hay que arrancar el servicio definido en `compose.tests.yaml`. Tiene definida la app para arrancar con `pytest`.
+
+```
+docker compose -f 'compose.etl.tests.yaml' up -d --build 'etl_tests'
+```
 
 ## Debugging
 

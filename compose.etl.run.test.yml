@@ -1,5 +1,5 @@
 services:
-  etl_test:
+  etl_run_test:
     build: .
     restart: "no"
     environment:

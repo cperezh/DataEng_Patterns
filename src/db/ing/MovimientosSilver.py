@@ -42,3 +42,5 @@ class MovimientosSilver:
         conn = db.ConexionBD.obtener_conexion()
 
         conn.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY bancapp.movimientos_mview")
+
+        conn.commit()
