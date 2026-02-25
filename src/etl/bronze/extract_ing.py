@@ -5,21 +5,21 @@ import datetime as dt
 
 data_path = "data/"
 
-def extract_movimientos():
+def extract_movimientos(file_name: str):
    
-   movimientos_csv = _read_movimientos()
+   movimientos_csv = _read_movimientos(file_name)
    movimientos_staging = _transformar_movimientos_csv_staging(movimientos_csv)
    _insertar_movimientos_staging(movimientos_staging)  
 
 
-def _get_file_path() -> str:
+def _get_file_path(file_name: str) -> str:
 
-    return data_path + "/movements-2022.csv"
+    return data_path + file_name
 
 
-def _read_movimientos_df() -> pd.DataFrame:
+def _read_movimientos_df(file_name: str) -> pd.DataFrame:
 
-    data_file = _get_file_path()
+    data_file = _get_file_path(file_name)
     
     df_movimientos_csv = pd.read_csv(data_file, skiprows=3, sep=",", header=0)
 
@@ -32,11 +32,11 @@ def _read_movimientos_df() -> pd.DataFrame:
     return df_movimientos_csv
 
 
-def _read_movimientos() -> list[dm_ing.MovimientosCSV]:
+def _read_movimientos(file_name: str) -> list[dm_ing.MovimientosCSV]:
 
     movimientos_csv : list[dm_ing.MovimientosCSV] = []
 
-    df_movimientos_csv = _read_movimientos_df()
+    df_movimientos_csv = _read_movimientos_df(file_name)
     
     for _, movimiento_csv in df_movimientos_csv.iterrows():
 

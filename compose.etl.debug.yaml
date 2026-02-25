@@ -8,7 +8,7 @@ services:
       DB_NAME: test
       POSTGRES_USER: test_user
       POSTGRES_PASSWORD: 1234
-    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 src/main.py "]
+    command: ["sh", "-c", "pip install debugpy -t /tmp && python /tmp/debugpy --wait-for-client --listen 0.0.0.0:5678 src/main.py movements-2026.csv"]
     ports:
       - 5678:5678
     volumes:
