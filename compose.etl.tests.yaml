@@ -4,7 +4,7 @@ services:
     restart: "no"
     environment:
       DB_HOST: db
-      DB_PORT: 5432
+      DB_PORT: 5432 
       DB_NAME: test
       POSTGRES_USER: test_user
       POSTGRES_PASSWORD: 1234
