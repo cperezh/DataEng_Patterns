@@ -15,10 +15,10 @@ def movimientos_staging():
 
     movs_staging : list[dm_ing.MovimientoStaging] = []
 
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("31/12/2025","%d/%m/%Y").date(), 1000, 1000, "Educación y salud", "Deporte y gimnasio", "Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES", fecha_lote))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("01/01/2026","%d/%m/%Y").date(), -500, 500, "Ocio y viajes", "Libros, música y videojuegos", "Pago en Nintendo EM9861ff0c2d5", fecha_lote))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("15/02/2026","%d/%m/%Y").date(), 200.65, 700.65, "Alimentación", "Supermercados y alimentación","Pago en DIA 9098 CANDELEDA ES", fecha_lote))
-    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("30/03/2026","%d/%m/%Y").date(), -150.55, -0.10, "Vehículo y transporte", "Gasolina y combustible" , "Pago en E.S. CEDIPSA MONTILLA S ENRIQUE GUAES", fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("31/12/2025","%d/%m/%Y").date(), "1000", "1000", "Educación y salud", "Deporte y gimnasio", "Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES", fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("01/01/2026","%d/%m/%Y").date(), "-500", "500", "Ocio y viajes", "Libros, música y videojuegos", "Pago en Nintendo EM9861ff0c2d5", fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("15/02/2026","%d/%m/%Y").date(), "200.65", "700.65", "Alimentación", "Supermercados y alimentación","Pago en DIA 9098 CANDELEDA ES", fecha_lote))
+    movs_staging.append(dm_ing.MovimientoStaging(-1, dt.datetime.strptime("30/03/2026","%d/%m/%Y").date(), "-150.55", "-0.10", "Vehículo y transporte", "Gasolina y combustible" , "Pago en E.S. CEDIPSA MONTILLA S ENRIQUE GUAES", fecha_lote))
     
 
     return movs_staging
