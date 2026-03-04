@@ -23,12 +23,6 @@ def _read_movimientos_df(file_name: str) -> pd.DataFrame:
     
     df_movimientos_csv = pd.read_csv(data_file, skiprows=3, sep=",", header=0)
 
-    # eliminamos los separadores de miles en el importe y el saldo y convertimos a numerico
-    df_movimientos_csv["SALDO (€)"] = df_movimientos_csv["SALDO (€)"].apply(lambda x: x.replace(",",""))
-    df_movimientos_csv["SALDO (€)"] = pd.to_numeric(df_movimientos_csv["SALDO (€)"])
-    df_movimientos_csv["IMPORTE (€)"] = df_movimientos_csv["IMPORTE (€)"].apply(lambda x: x.replace(",",""))
-    df_movimientos_csv["IMPORTE (€)"] = pd.to_numeric(df_movimientos_csv["IMPORTE (€)"])
-    
     return df_movimientos_csv
 
 
