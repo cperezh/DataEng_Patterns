@@ -22,6 +22,24 @@ services:
       - cloudbeaver_workspace:/opt/cloudbeaver/workspace
       - cloudbeaver_conf:/opt/cloudbeaver/conf
 
+
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase
+    hostname: metabase
+    volumes:
+      - /dev/urandom:/dev/random:ro
+    ports:
+      - 3000:3000
+    environment:
+      MB_DB_TYPE: postgres
+      MB_DB_DBNAME: metabase_db
+      MB_DB_PORT: 5432
+      MB_DB_USER: metabase
+      MB_DB_PASS: 1234
+      MB_DB_HOST: db
+
+
 volumes:
   db_data:
   cloudbeaver_workspace:

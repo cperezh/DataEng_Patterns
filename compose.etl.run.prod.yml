@@ -8,6 +8,6 @@ services:
       DB_NAME: produccion
       POSTGRES_USER: prod_user
       POSTGRES_PASSWORD: 1234
-    command: ["python", "src/main.py", "movements-2026.csv"]
+    command: ["python", "src/main.py", "movements-2025.csv"]
     volumes:
       - ./data:/app/data
