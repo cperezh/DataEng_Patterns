@@ -22,15 +22,17 @@ CREATE MATERIALIZED VIEW bancapp.movimientos_mview AS
         (SELECT      
           id,
           fecha_valor,
-          CASE
-              WHEN importe LIKE '%,__'::text THEN replace(replace(importe, '.'::text, ''::text), ','::text, '.'::text)
-              WHEN importe LIKE '%.__'::text THEN replace(importe, ','::text, ''::text)
-          END AS importe,
-          CASE
-              WHEN saldo LIKE '%,__'::text THEN replace(replace(saldo, '.'::text, ''::text), ','::text, '.'::text)
-              WHEN saldo LIKE '%.__'::text THEN replace(saldo, ','::text, ''::text)
-              ELSE NULL::text
-          END AS saldo,
+          CAST(
+            CASE
+                WHEN importe LIKE '%,__' THEN replace(replace(importe, '.', ''), ',', '.')
+                WHEN importe LIKE '%.__' THEN replace(importe, ',', '')
+            END AS NUMERIC) AS importe,
+          CAST(
+            CASE
+                WHEN saldo LIKE '%,__' THEN replace(replace(saldo, '.', ''), ',', '.')
+                WHEN saldo LIKE '%.__' THEN replace(saldo, ',', '')
+                ELSE NULL
+            END AS NUMERIC) AS saldo,
           created_at,
           categoria,
           subcategoria,
