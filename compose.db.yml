@@ -27,6 +27,9 @@ services:
     image: metabase/metabase:latest
     container_name: metabase
     hostname: metabase
+    restart: unless-stopped
+    depends_on:
+      - db
     volumes:
       - /dev/urandom:/dev/random:ro
     ports:
