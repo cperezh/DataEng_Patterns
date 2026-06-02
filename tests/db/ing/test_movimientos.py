@@ -14,6 +14,6 @@ class TestMovimientosStaging:
         assert len(movs_staging) == 4
         assert movs_staging[0].fecha_valor == dt.date(2025, 12, 31)
         assert movs_staging[3].fecha_valor == dt.date(2026, 3, 30) 
-        assert movs_staging[3].importe == "-150.55"
-        assert movs_staging[3].saldo == "-0.10"
+        assert movs_staging[3].importe == "-150,55"
+        assert movs_staging[3].saldo == "-0,10"
 

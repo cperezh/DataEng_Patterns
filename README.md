@@ -7,12 +7,13 @@ El proyecto está montado en una arquitectura sobre Docker, utilizando docker co
 
 Visual Studio Code se utiliza para el desarrollo y debugging local y la ejecución local de los tests, aunque tanto la ETL como los tests están también dockerizados, para máxima compatibilidad con el entorno de producción durante el desarrollo. 
 
-El proyecto consta de dos base de datos, una de **test** para desarrollo y pruebas y otra de **producción** donde sólo se ejecuta la versión dockerizada y testeada de la ETL de carga.
+El proyecto consta de dos base de datos, una de **test** para desarrollo y pruebas y otra de **producción** donde sólo se ejecuta la versión dckerizada y testeada de la ETL de carga.
 
-Existen tres artefactos ejecutables:
+Existen cuatro artefactos ejecutables:
 - La ETL de carga de datos bancarios.
 - La base de datos de almacenamiento.
-- El jupyter notebook analítico.
+- El jupyter notebook analítico
+- La herramienta de BI, Metabase, con los informes creados.  
 
 ![](/diagrams/artifacts.png)
 
@@ -47,7 +48,11 @@ Y después como administradores de la base de datos:
 ### **Actualizar datos en la base de datos**
 
 1. Actualizar el nombre del fichero de datos a cargar.
-   - Para ello, editar el fichero ```src\extract\extract_ing.py```, cambiando la función ```_get_file_path``` para que devuelva el fichero a cargar.
+   - El nombre del fichero se pasa por parámetro en todos los ficheros de carga:
+      - **compose.etl.run.test.yaml**: para cargar contra la BD de test.
+      - **compose.etl.run.prod.yaml**: para cargar contra la BD de producción.
+      - **compose.etl.debug.yaml**: para debuquear la ETL dockerizada.
+      - **.vscode/launch.json**: para actualizar la configuración del testing en VSC
    - El sistema deduplica los movimientos por fecha_valor, importe y saldo, quedándose con el más reciente en caso de conflicto.
 2. Ejecutar la ETL 
   ```bash
@@ -104,6 +109,25 @@ y accedemos a [Jupyter](http://127.0.0.1:8888/lab/workspaces/auto-p/tree/noteboo
 ```
 
 ## Desarrollo
+
+## Instalación de la base de datos
+
+1. Crear la cuenta de administración de Cloud Beaver
+
+   ```bash
+   usr: cbadmin
+   pass: s5Z@33FHaGukh5B
+   ```
+
+2. Crear la conexión al postgres dockerizado:
+
+   ```bash
+   host: db
+   user: postgres
+   pwd: 1234
+   ```
+3. Ejecutar el script 0 que crea las dos bases de datos y los usuarios owner.
+4. Conectarse a cada base de datos y ejecutar el resto de scripts.
 
 ## Instalación de Python en local
 

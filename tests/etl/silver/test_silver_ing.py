@@ -12,3 +12,11 @@ def test_refresh_movimientos():
 
     assert len(movimientos_silver)==4
     assert movimientos_silver[0].descripcion=="POSTERIOR - Pago en DECATHLON ALCOBENDAS ALCOBENDAS ES"
+
+    gastos_silver = db.ing.MovimientosSilver.obtener_todos_gastos()
+
+    assert len(gastos_silver)==2
+    assert gastos_silver[1].descripcion=="Pago en E.S. CEDIPSA MONTILLA S ENRIQUE GUAES"
+
+    
+

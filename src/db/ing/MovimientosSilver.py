@@ -32,6 +32,34 @@ class MovimientosSilver:
         
         return results
     
+    @staticmethod
+    def obtener_todos_gastos() -> list[dm_ing.MovimientosSilver]:
+        """
+        Obtiene todos los gastos de la base de datos.
+        
+        Returns:
+            Lista de MovimientosSilver
+        """
+
+        conn = db.ConexionBD.obtener_conexion()
+        
+        results = conn.cursor(row_factory=class_row(dm_ing.MovimientosSilver)).execute(
+            """
+                SELECT 
+                    fecha_valor, 
+                    abs_importe as importe,
+                    saldo,
+                    categoria,  
+                    subcategoria,
+                    descripcion,
+                    created_at
+                FROM bancapp.gastos_mview
+                ORDER BY fecha_valor ASC
+            """
+        ).fetchall()
+        
+        return results
+    
     
     @staticmethod
     def refresh_movimientos():
@@ -42,5 +70,17 @@ class MovimientosSilver:
         conn = db.ConexionBD.obtener_conexion()
 
         conn.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY bancapp.movimientos_mview")
+
+        conn.commit()
+    
+    @staticmethod
+    def refresh_gastos():
+        '''
+            Ejecuta un refresh de la vista materializada de gastos
+        '''
+
+        conn = db.ConexionBD.obtener_conexion()
+
+        conn.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY bancapp.gastos_mview")
 
         conn.commit()

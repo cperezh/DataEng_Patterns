@@ -1,4 +1,4 @@
-DROP MATERIALIZED VIEW bancapp.movimientos_mview;
+DROP MATERIALIZED VIEW IF EXISTS bancapp.movimientos_mview;
 
 CREATE MATERIALIZED VIEW bancapp.movimientos_mview AS
     SELECT 
@@ -26,12 +26,13 @@ CREATE MATERIALIZED VIEW bancapp.movimientos_mview AS
             CASE
                 WHEN importe LIKE '%,__' THEN replace(replace(importe, '.', ''), ',', '.')
                 WHEN importe LIKE '%.__' THEN replace(importe, ',', '')
+                ELSE importe
             END AS NUMERIC) AS importe,
           CAST(
             CASE
                 WHEN saldo LIKE '%,__' THEN replace(replace(saldo, '.', ''), ',', '.')
                 WHEN saldo LIKE '%.__' THEN replace(saldo, ',', '')
-                ELSE NULL
+                ELSE saldo
             END AS NUMERIC) AS saldo,
           created_at,
           categoria,
