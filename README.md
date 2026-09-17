@@ -44,6 +44,32 @@ Y después como administradores de la base de datos:
 - usr: postgres
 - pass: 1234
 
+### **Acceso a Metabase**
+
+El stack principal de la aplicación ya levanta también el servicio de Metabase junto con PostgreSQL. Una vez arrancada la base de datos con:
+
+```bash
+docker compose -f compose.db.yml up -d
+```
+
+podemos abrir la interfaz web de Metabase en:
+
+```text
+http://localhost:3000/
+```
+
+La primera vez que se accede, Metabase solicitará crear la cuenta de administrador inicial. Sigue el asistente de configuración y crea un usuario administrador con tus credenciales. Una vez finalizado el proceso, se recomienda conectar Metabase a la base de datos del proyecto para crear dashboards e informes.
+
+Para añadir la conexión a PostgreSQL desde Metabase:
+
+- Tipo de base de datos: PostgreSQL
+- Host: `db` (si se conecta desde dentro del docker-compose) o `localhost` si se conecta desde el host Docker
+- Puerto: `5432`
+- Base de datos: `produccion` o `test`, según el entorno que quieras consultar
+- Usuario: `prod_user` / `test_user`
+- Contraseña: `1234`
+
+Si quieres que Metabase tenga su propio almacenamiento interno para configuraciones y consultas, la base de datos `metabase_db` se crea automáticamente con la configuración que aparece en `compose.db.yml`.
 
 ### **Actualizar datos en la base de datos**
 
@@ -58,11 +84,6 @@ Y después como administradores de la base de datos:
   ```bash
   docker compose -f compose.etl.run.prod.yml up -d --build
   ```
-3. Refrescar la vista materializada.
-   - Ejecutar en la base de datos.
-```sql
-REFRESH MATERIALIZED VIEW CONCURRENTLY bancapp.movimientos_mview
-``` 
 
 ### **Revisar y refinar la analítica del proyecto**
 
@@ -79,33 +100,46 @@ y accedemos a [Jupyter](http://127.0.0.1:8888/lab/workspaces/auto-p/tree/noteboo
 
 ```
 .
-├── src/                            # Código fuente
-│   ├── data_model/                 # Modelos de datos / entidades
-│   ├── db/                         # Acceso a base de datos
-│   ├── extract/                    # Extracción de datos (ej: ficheros/APIs)
-│   └── etl/                        # Orquestación ETL
-├── tests/                          # Tests (pytest)
-│   ├── data/                       # Datos de test
-│   ├── extract/
-│   └── db/
-├── data/                           # Datos entrada. Se mapea como volumen de docker.
-├── sql/                            # Scripts SQL para la creación de la base de datos.
-├── notebooks/                      # Notebooks de análisis
-├── querys/                         # Consultas SQL ad-hoc
-├── compose.db.yml                  # Fichero principal de la aplicación.
-├── compose.etl.tests.yaml          # Compose para ejecutar/depurar tests en Docker
-├── compose.etl.debug.yaml          # Compose para debugging
-├── compose.analytics.prod.yaml     # Compose para la ejecución de jupyter lab (prod bd)
-├── compose.analytics.test.yaml     # Compose para la ejecución de jupyter lab (test bd)
-├── compose.etl.prod.yml            # Compose para la ejecución de la etl(prod bd)
-├── Dockerfile                      # Imagen Docker de la aplicación.
-├── requirements.txt                # Dependencias Python de al aplicación
-├── pytest.ini                      # Configuración pytest
-├── run_local.env                   # Variables de entorno para ejecución local
-├── diagrams.dio                    # Diagramas (draw.io)
-├── Run ETL.sduml                   # Diagrama de secuencia (https://sequencediagram.org/)
-├── .gitignore                      # Git ignore
-└── README.md                       # Este archivo
+├── data/                           # Datos de entrada (CSV de movimientos)
+├── diagrams/                       # Diagramas del sistema y flujo ETL
+│   ├── diagrams.dio
+│   └── Run ETL.sduml
+├── logs/                           # Ficheros de log y trazas
+├── notebooks/                      # Notebooks de análisis y reporting
+├── querys/                         # Consultas SQL ad hoc para análisis
+├── sql/                            # Scripts SQL para crear BD, vistas y modelos
+├── src/                            # Código Python de la aplicación
+│   ├── data_model/                 # Modelos de datos de entrada/salida
+│   │   └── ing/
+│   ├── db/                         # Conexiones y acceso a la base de datos
+│   │   └── ing/
+│   └── etl/                        # Lógica ETL por capas
+│       ├── bronze/
+│       └── silver/
+├── tests/                          # Tests de validación
+│   ├── data/                       # Ficheros de datos para tests
+│   ├── db/                         # Tests de acceso a BD
+│   │   └── ing/
+│   └── etl/                        # Tests de extracción y transformaciones
+│       ├── bronze/
+│       └── silver/
+├── compose.db.yml                  # PostgreSQL, CloudBeaver y Metabase
+├── compose.etl.run.prod.yml         # ETL en entorno de producción
+├── compose.etl.run.test.yml         # ETL en entorno de test
+├── compose.etl.tests.yaml           # Ejecuta tests en contenedor
+├── compose.etl.debug.yaml           # Depuración remota de la ETL
+├── compose.analytics.prod.yaml      # Jupyter para análisis en prod
+├── compose.analytics.test.yaml      # Jupyter para análisis en test
+├── Dockerfile                      # Imagen base del proyecto
+├── requirements.txt                # Dependencias Python
+├── pytest.ini                      # Configuración principal de pytest
+├── run_local.env                   # Variables de entorno locales
+├── README.md                       # Documentación principal del proyecto
+├── TODO.md                         # Lista de pendientes y mejoras
+├── .gitignore                      # Archivos ignorados por Git
+├── diagrams.dio                    # Diagrama principal del proyecto
+├── .vscode/                        # Configuración local de VS Code
+└── .venv/                          # Entorno virtual local (si existe)
 ```
 
 ## Desarrollo
